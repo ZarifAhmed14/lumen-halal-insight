@@ -13,7 +13,7 @@ import {
   QrCode,
   ScanLine,
   Mic,
-  FileText,
+  Paperclip,
 } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
@@ -129,9 +129,9 @@ function Hero() {
               desc: "Speak your question, hear the ruling",
             },
             {
-              icon: FileText,
-              title: "Upload PDF",
-              desc: "Audit contracts, prospectuses, or labels",
+              icon: Paperclip,
+              title: "Attachment",
+              desc: "Upload contracts, labels, or any document",
             },
           ].map((item) => (
             <Link
