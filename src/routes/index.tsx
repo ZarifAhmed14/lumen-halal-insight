@@ -10,6 +10,8 @@ import {
   Building2,
   ArrowUpRight,
   Quote,
+  QrCode,
+  ScanLine,
 } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
@@ -103,6 +105,41 @@ function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/60 px-5 py-3 text-sm text-foreground backdrop-blur transition-colors hover:bg-surface"
           >
             See the methodology
+          </Link>
+        </div>
+
+        {/* Capture modes — QR code & image scan */}
+        <div className="mx-auto mt-10 grid max-w-2xl gap-3 sm:grid-cols-2">
+          <Link
+            to="/assistant"
+            className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-hairline bg-surface/60 p-4 text-left backdrop-blur transition-all hover:border-jade/40 hover:bg-surface"
+          >
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-jade/10 text-jade">
+              <QrCode className="h-5 w-5" strokeWidth={1.5} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-sm font-medium text-foreground">Scan QR code</div>
+              <div className="truncate text-xs text-muted-foreground">
+                Verify halal certification instantly
+              </div>
+            </div>
+            <ArrowUpRight className="h-4 w-4 text-muted-foreground opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+          </Link>
+
+          <Link
+            to="/assistant"
+            className="group relative flex items-center gap-4 overflow-hidden rounded-2xl border border-hairline bg-surface/60 p-4 text-left backdrop-blur transition-all hover:border-jade/40 hover:bg-surface"
+          >
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-jade/10 text-jade">
+              <ScanLine className="h-5 w-5" strokeWidth={1.5} />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-sm font-medium text-foreground">Scan image</div>
+              <div className="truncate text-xs text-muted-foreground">
+                Analyze ingredients from a photo
+              </div>
+            </div>
+            <ArrowUpRight className="h-4 w-4 text-muted-foreground opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
           </Link>
         </div>
       </motion.div>
