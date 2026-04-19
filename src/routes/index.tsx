@@ -54,12 +54,9 @@ function LandingPage() {
       <main className="relative">
         <Hero />
         <TrustStrip />
-        <PillarsSection />
         <HowItWorks />
         <DomainsSection />
         <ProductShowcase />
-        <ComparisonSection />
-        <PrivacySection />
         <TestimonialsSection />
         <FinalCTA />
       </main>
@@ -114,54 +111,6 @@ function Hero() {
         </div>
       </motion.div>
 
-      {/* Hero showcase */}
-      <div className="relative mx-auto mt-20 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <AnswerCard />
-        </motion.div>
-
-        {/* Floating side cards */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, delay: 0.5 }}
-          className="absolute -left-6 top-20 hidden w-56 rotate-[-4deg] xl:block"
-        >
-          <div className="glass animate-float rounded-2xl p-4 shadow-elegant">
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Ingredient analysis
-            </div>
-            <div className="mt-2 text-sm font-medium">E471 — Mono-/Di-glycerides</div>
-            <div className="mt-3">
-              <VerdictBadge verdict="mushbooh" size="sm" />
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, delay: 0.6 }}
-          className="absolute -right-6 top-44 hidden w-56 rotate-[4deg] xl:block"
-        >
-          <div
-            className="glass rounded-2xl p-4 shadow-elegant animate-float"
-            style={{ animationDelay: "1.5s" }}
-          >
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Finance screen
-            </div>
-            <div className="mt-2 text-sm font-medium">$AAPL — Apple Inc.</div>
-            <div className="mt-3">
-              <VerdictBadge verdict="halal" size="sm" />
-            </div>
-          </div>
-        </motion.div>
-      </div>
     </section>
   );
 }
