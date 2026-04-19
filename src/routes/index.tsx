@@ -3,9 +3,6 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   ShieldCheck,
-  Database,
-  Eye,
-  Lock,
   Sparkles,
   Wallet,
   Apple,
@@ -16,7 +13,6 @@ import {
 } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
-import { AnswerCard } from "@/components/site/AnswerCard";
 import { VerdictBadge } from "@/components/site/VerdictBadge";
 import { Link } from "@tanstack/react-router";
 
@@ -54,12 +50,9 @@ function LandingPage() {
       <main className="relative">
         <Hero />
         <TrustStrip />
-        <PillarsSection />
         <HowItWorks />
         <DomainsSection />
         <ProductShowcase />
-        <ComparisonSection />
-        <PrivacySection />
         <TestimonialsSection />
         <FinalCTA />
       </main>
@@ -114,54 +107,6 @@ function Hero() {
         </div>
       </motion.div>
 
-      {/* Hero showcase */}
-      <div className="relative mx-auto mt-20 max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <AnswerCard />
-        </motion.div>
-
-        {/* Floating side cards */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, delay: 0.5 }}
-          className="absolute -left-6 top-20 hidden w-56 rotate-[-4deg] xl:block"
-        >
-          <div className="glass animate-float rounded-2xl p-4 shadow-elegant">
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Ingredient analysis
-            </div>
-            <div className="mt-2 text-sm font-medium">E471 — Mono-/Di-glycerides</div>
-            <div className="mt-3">
-              <VerdictBadge verdict="mushbooh" size="sm" />
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, delay: 0.6 }}
-          className="absolute -right-6 top-44 hidden w-56 rotate-[4deg] xl:block"
-        >
-          <div
-            className="glass rounded-2xl p-4 shadow-elegant animate-float"
-            style={{ animationDelay: "1.5s" }}
-          >
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Finance screen
-            </div>
-            <div className="mt-2 text-sm font-medium">$AAPL — Apple Inc.</div>
-            <div className="mt-3">
-              <VerdictBadge verdict="halal" size="sm" />
-            </div>
-          </div>
-        </motion.div>
-      </div>
     </section>
   );
 }
@@ -191,41 +136,6 @@ function TrustStrip() {
   );
 }
 
-/* ============================================================ PILLARS */
-function PillarsSection() {
-  const pillars = [
-    {
-      icon: Database,
-      title: "Retrieval-grounded",
-      body: "Every answer is anchored to a verified knowledge base of classical and contemporary scholarship. No hallucinations. No guessing.",
-    },
-    {
-      icon: Eye,
-      title: "Radically transparent",
-      body: "Reasoning is shown step-by-step. Sources are cited inline. Differing scholarly opinions coexist openly.",
-    },
-    {
-      icon: Lock,
-      title: "Privacy-first",
-      body: "A locally-deployable model. Your questions never train external systems. Your conscience stays yours.",
-    },
-  ];
-  return (
-    <Section eyebrow="Why it's different" title="Trust isn't a tagline. It's an architecture.">
-      <div className="grid gap-px overflow-hidden rounded-3xl border border-hairline bg-hairline md:grid-cols-3">
-        {pillars.map((p) => (
-          <div key={p.title} className="bg-surface p-8">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-jade/10 text-jade">
-              <p.icon className="h-5 w-5" strokeWidth={1.5} />
-            </div>
-            <h3 className="mt-5 font-display text-xl text-foreground">{p.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.body}</p>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
 
 /* ============================================================ HOW IT WORKS */
 function HowItWorks() {
@@ -393,95 +303,7 @@ function ProductShowcase() {
   );
 }
 
-/* ============================================================ COMPARISON */
-function ComparisonSection() {
-  return (
-    <Section eyebrow="The difference" title="Why generic AI cannot do this work.">
-      <div className="overflow-hidden rounded-3xl border border-hairline">
-        <div className="grid grid-cols-3 bg-surface/50 text-xs font-medium uppercase tracking-widest text-muted-foreground">
-          <div className="p-5">Capability</div>
-          <div className="border-l border-hairline p-5">Generic AI / Search</div>
-          <div className="border-l border-hairline bg-jade/5 p-5 text-jade">Halal Intelligence</div>
-        </div>
-        {[
-          ["Source traceability", "Often fabricated", "Inline, verified citations"],
-          ["Scholarly disagreement", "Single answer", "Compared, contextualized"],
-          ["Confidence signal", "Hidden or absent", "Explicit per response"],
-          ["Privacy", "Trains on your data", "Local-first deployment"],
-          ["Domain depth", "Generalist", "Halal-trained reasoning"],
-        ].map(([cap, generic, ours], i) => (
-          <div
-            key={cap}
-            className={`grid grid-cols-3 text-sm ${i % 2 ? "bg-surface/20" : "bg-transparent"}`}
-          >
-            <div className="border-t border-hairline p-5 text-foreground/90">{cap}</div>
-            <div className="border-l border-t border-hairline p-5 text-muted-foreground">
-              {generic}
-            </div>
-            <div className="border-l border-t border-hairline bg-jade/5 p-5 text-foreground">
-              {ours}
-            </div>
-          </div>
-        ))}
-      </div>
-    </Section>
-  );
-}
 
-/* ============================================================ PRIVACY */
-function PrivacySection() {
-  return (
-    <section className="mx-auto max-w-7xl px-6 py-32">
-      <div className="relative overflow-hidden rounded-[2rem] border border-hairline bg-surface p-10 md:p-16">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-60"
-          style={{ background: "var(--gradient-aurora)" }}
-        />
-        <div className="relative grid gap-12 md:grid-cols-2 md:items-center">
-          <div>
-            <div className="text-xs uppercase tracking-widest text-jade">Privacy by design</div>
-            <h2 className="font-display mt-4 text-balance text-4xl font-light leading-tight md:text-5xl">
-              Your conscience is not a dataset.
-            </h2>
-            <p className="mt-5 max-w-md text-pretty text-muted-foreground">
-              The Halal Intelligence model can be deployed locally — on your device, in your
-              hospital, inside your bank. Nothing leaves. Nothing trains. Nothing leaks.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-2">
-              {["Local inference", "Zero-retention", "Audit logs", "BYO knowledge base"].map(
-                (t) => (
-                  <div
-                    key={t}
-                    className="rounded-full border border-hairline bg-background/40 px-3 py-1.5 text-xs text-foreground/80 backdrop-blur"
-                  >
-                    {t}
-                  </div>
-                ),
-              )}
-            </div>
-          </div>
-          <div className="relative">
-            <div className="grid grid-cols-3 gap-2">
-              {Array.from({ length: 9 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`aspect-square rounded-xl border border-hairline ${
-                    i === 4 ? "bg-jade/20" : "bg-background/30"
-                  } flex items-center justify-center`}
-                >
-                  {i === 4 && <Lock className="h-6 w-6 text-jade" strokeWidth={1.5} />}
-                </div>
-              ))}
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-32 w-32 animate-pulse-ring rounded-full border border-jade/30" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ============================================================ TESTIMONIALS */
 function TestimonialsSection() {
