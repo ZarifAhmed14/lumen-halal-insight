@@ -216,6 +216,16 @@
     letter-spacing: -0.02em;
   }
 
+  .font-mono {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum", "cv02";
+    letter-spacing: -0.01em;
+  }
+
+  .font-arabic {
+    font-family: var(--font-arabic);
+  }
+
   .text-balance {
     text-wrap: balance;
   }
