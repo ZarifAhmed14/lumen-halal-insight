@@ -14,6 +14,9 @@ import {
   ScanLine,
   Mic,
   Paperclip,
+  BookOpen,
+  Check,
+  PlayCircle,
 } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
