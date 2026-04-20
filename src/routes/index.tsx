@@ -69,7 +69,7 @@ function LandingPage() {
 /* ============================================================ HERO */
 function Hero() {
   return (
-    <section className="relative mx-auto max-w-7xl px-6 pt-24 pb-32 md:pt-32">
+    <section className="relative mx-auto max-w-7xl px-4 pt-16 pb-20 sm:px-6 sm:pt-24 sm:pb-32 md:pt-32">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -84,12 +84,12 @@ function Hero() {
           Now in private beta · v1.0
         </div>
 
-        <h1 className="font-display mt-6 text-balance text-5xl font-light leading-[1.05] text-foreground md:text-7xl">
+        <h1 className="font-display mt-6 text-balance text-4xl font-light leading-[1.05] text-foreground sm:text-5xl md:text-7xl">
           Halal guidance,{" "}
           <span className="italic text-gradient-jade">grounded in evidence.</span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+        <p className="mx-auto mt-5 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground sm:mt-6 sm:text-base md:text-lg">
           A halal-aware intelligence layer for finance, food, and life — retrieval-backed,
           source-traceable, and privately deployed. AI that doesn't guess.
         </p>
@@ -399,8 +399,8 @@ function TestimonialsSection() {
 /* ============================================================ FINAL CTA */
 function FinalCTA() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-32">
-      <div className="relative overflow-hidden rounded-[2rem] border border-jade/20 bg-gradient-to-br from-surface via-background to-surface p-12 text-center md:p-20">
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-32">
+      <div className="relative overflow-hidden rounded-[1.5rem] border border-jade/20 bg-gradient-to-br from-surface via-background to-surface p-8 text-center sm:rounded-[2rem] sm:p-12 md:p-20">
         <div className="bg-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
         <div
           className="pointer-events-none absolute inset-0"
@@ -411,7 +411,7 @@ function FinalCTA() {
             <Sparkles className="h-3 w-3 text-jade" />
             Built for the next billion decisions
           </div>
-          <h2 className="font-display mt-6 text-balance text-5xl font-light leading-[1.05] md:text-6xl">
+          <h2 className="font-display mt-6 text-balance text-4xl font-light leading-[1.05] sm:text-5xl md:text-6xl">
             Make every choice with{" "}
             <span className="italic text-gradient-jade">conviction.</span>
           </h2>
@@ -451,10 +451,10 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-24 md:py-32">
-      <div className="mx-auto mb-14 max-w-2xl text-center">
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:py-32">
+      <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
         <div className="text-xs uppercase tracking-widest text-jade">{eyebrow}</div>
-        <h2 className="font-display mt-4 text-balance text-4xl font-light leading-[1.1] md:text-5xl">
+        <h2 className="font-display mt-4 text-balance text-3xl font-light leading-[1.1] sm:text-4xl md:text-5xl">
           {title}
         </h2>
       </div>
