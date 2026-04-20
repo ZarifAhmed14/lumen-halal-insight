@@ -109,7 +109,7 @@ function AssistantPage() {
         </aside>
 
         {/* Main */}
-        <main className="relative min-h-[calc(100vh-4rem)] px-4 py-8 md:px-10">
+        <main className="relative min-h-[calc(100vh-4rem)] px-4 py-6 sm:py-8 md:px-10">
           <AnimatePresence mode="wait">
             {!submitted ? (
               <motion.div
@@ -123,7 +123,7 @@ function AssistantPage() {
                   <Sparkles className="h-3 w-3 text-jade" />
                   Grounded · Cited · Private
                 </div>
-                <h1 className="font-display text-balance text-center text-4xl font-light leading-tight md:text-5xl">
+                <h1 className="font-display text-balance text-center text-3xl font-light leading-tight sm:text-4xl md:text-5xl">
                   What guidance do you{" "}
                   <span className="italic text-gradient-jade">seek today?</span>
                 </h1>
@@ -157,36 +157,38 @@ function AssistantPage() {
                 className="mx-auto max-w-3xl pb-32"
               >
                 {/* User question */}
-                <div className="flex gap-4">
+                <div className="flex gap-3 sm:gap-4">
                   <div className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-foreground/5 text-xs">
                     Q
                   </div>
-                  <p className="font-display text-2xl leading-snug text-foreground">
+                  <p className="font-display text-xl leading-snug text-foreground sm:text-2xl">
                     {input || "Is investing in a S&P 500 ETF halal?"}
                   </p>
                 </div>
 
                 {/* Tab strip */}
-                <div className="mt-8 flex gap-1 rounded-full border border-hairline bg-surface p-1 text-xs w-fit">
-                  {[
-                    { id: "answer", label: "Answer", icon: Sparkles },
-                    { id: "sources", label: "Sources", icon: BookOpen },
-                    { id: "opinions", label: "Opinions", icon: GitBranch },
-                    { id: "trace", label: "Reasoning", icon: ChevronRight },
-                  ].map((t) => (
-                    <button
-                      key={t.id}
-                      onClick={() => setTab(t.id as typeof tab)}
-                      className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 transition-all ${
-                        tab === t.id
-                          ? "bg-foreground text-background"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      <t.icon className="h-3 w-3" />
-                      {t.label}
-                    </button>
-                  ))}
+                <div className="-mx-4 mt-8 overflow-x-auto px-4 md:mx-0 md:overflow-visible md:px-0">
+                  <div className="flex w-max gap-1 rounded-full border border-hairline bg-surface p-1 text-xs md:w-fit">
+                    {[
+                      { id: "answer", label: "Answer", icon: Sparkles },
+                      { id: "sources", label: "Sources", icon: BookOpen },
+                      { id: "opinions", label: "Opinions", icon: GitBranch },
+                      { id: "trace", label: "Reasoning", icon: ChevronRight },
+                    ].map((t) => (
+                      <button
+                        key={t.id}
+                        onClick={() => setTab(t.id as typeof tab)}
+                        className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-1.5 transition-all ${
+                          tab === t.id
+                            ? "bg-foreground text-background"
+                            : "text-muted-foreground hover:text-foreground"
+                        }`}
+                      >
+                        <t.icon className="h-3 w-3" />
+                        {t.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Content */}
@@ -218,7 +220,7 @@ function AssistantPage() {
 
                 {/* Follow-up */}
                 <div className="fixed inset-x-0 bottom-0 border-t border-hairline bg-background/80 backdrop-blur-xl">
-                  <div className="mx-auto max-w-3xl px-4 py-4 md:px-10">
+                  <div className="mx-auto max-w-3xl px-4 py-3 sm:py-4 md:px-10">
                     <InputBox
                       value=""
                       onChange={() => {}}
@@ -345,17 +347,19 @@ function OpinionsTab() {
       {ops.map((o, i) => (
         <div
           key={o.school}
-          className={`grid grid-cols-[1.5fr_1fr_1.5fr_auto] items-center gap-4 p-5 ${
+          className={`grid grid-cols-[1fr_auto] items-start gap-x-4 gap-y-2 p-4 sm:grid-cols-[1.5fr_1fr_1.5fr_auto] sm:items-center sm:gap-4 sm:p-5 ${
             i > 0 ? "border-t border-hairline" : ""
           }`}
         >
-          <div>
+          <div className="min-w-0">
             <div className="text-sm font-medium">{o.school}</div>
             <div className="mt-0.5 text-xs text-muted-foreground">Position</div>
           </div>
-          <div className="text-sm">{o.view}</div>
-          <div className="text-xs text-muted-foreground">{o.note}</div>
-          <VerdictBadge verdict={o.v} size="sm" />
+          <div className="justify-self-end sm:justify-self-auto sm:order-none">
+            <VerdictBadge verdict={o.v} size="sm" />
+          </div>
+          <div className="col-span-2 text-sm sm:col-span-1 sm:order-none">{o.view}</div>
+          <div className="col-span-2 text-xs text-muted-foreground sm:col-span-1 sm:order-none">{o.note}</div>
         </div>
       ))}
     </div>
