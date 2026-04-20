@@ -30,9 +30,9 @@ function TransparencyPage() {
         style={{ background: "var(--gradient-aurora)" }}
       />
       <Nav />
-      <main className="relative mx-auto max-w-6xl px-6 py-24">
+      <main className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="text-xs uppercase tracking-widest text-jade">Transparency</div>
-        <h1 className="font-display mt-4 max-w-3xl text-balance text-5xl font-light leading-[1.05] md:text-6xl">
+        <h1 className="font-display mt-4 max-w-3xl text-balance text-4xl font-light leading-[1.05] sm:text-5xl md:text-6xl">
           Every answer carries its{" "}
           <span className="italic text-gradient-jade">chain of evidence.</span>
         </h1>
@@ -42,7 +42,7 @@ function TransparencyPage() {
         </p>
 
         {/* Architecture diagram */}
-        <div className="mt-16 grid gap-px overflow-hidden rounded-3xl border border-hairline bg-hairline md:grid-cols-4">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-hairline bg-hairline sm:mt-16 sm:grid-cols-2 md:grid-cols-4">
           {[
             { icon: BookOpen, t: "Knowledge corpus", d: "12,400+ verified rulings, primary texts, and contemporary fatāwā." },
             { icon: Database, t: "Retrieval", d: "Semantic + symbolic search across categorized principles." },
@@ -58,8 +58,8 @@ function TransparencyPage() {
         </div>
 
         {/* Source categories */}
-        <section className="mt-24">
-          <h2 className="font-display text-3xl">Source categories</h2>
+        <section className="mt-16 sm:mt-24">
+          <h2 className="font-display text-2xl sm:text-3xl">Source categories</h2>
           <div className="mt-6 grid gap-3 md:grid-cols-2">
             {[
               { t: "Primary texts", d: "Qur'an, ḥadīth collections (Bukhārī, Muslim, Sunan), with established chains." },
@@ -79,8 +79,8 @@ function TransparencyPage() {
         </section>
 
         {/* Principles */}
-        <section className="mt-24">
-          <h2 className="font-display text-3xl">Operating principles</h2>
+        <section className="mt-16 sm:mt-24">
+          <h2 className="font-display text-2xl sm:text-3xl">Operating principles</h2>
           <div className="mt-6 space-y-px overflow-hidden rounded-2xl border border-hairline bg-hairline">
             {[
               { icon: GitBranch, t: "Honor disagreement", d: "When scholars differ, we surface multiple positions rather than collapse them." },

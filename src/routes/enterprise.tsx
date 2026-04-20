@@ -30,9 +30,9 @@ function EnterprisePage() {
         style={{ background: "var(--gradient-aurora)" }}
       />
       <Nav />
-      <main className="relative mx-auto max-w-6xl px-6 py-24">
+      <main className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <div className="text-xs uppercase tracking-widest text-jade">Enterprise</div>
-        <h1 className="font-display mt-4 max-w-3xl text-balance text-5xl font-light leading-[1.05] md:text-6xl">
+        <h1 className="font-display mt-4 max-w-3xl text-balance text-4xl font-light leading-[1.05] sm:text-5xl md:text-6xl">
           A halal-aware intelligence layer for{" "}
           <span className="italic text-gradient-jade">your institution.</span>
         </h1>
@@ -57,14 +57,14 @@ function EnterprisePage() {
           </a>
         </div>
 
-        <div className="mt-20 grid gap-6 md:grid-cols-2">
+        <div className="mt-16 grid gap-4 sm:gap-6 md:grid-cols-2 sm:mt-20">
           {[
             { icon: Code, t: "Drop-in API", d: "REST + streaming. Returns verdict, confidence, sources, and reasoning trace." },
             { icon: Lock, t: "On-prem deployment", d: "Run the full stack inside your VPC or on a managed Islamic-banking environment." },
             { icon: Layers, t: "BYO knowledge", d: "Augment our corpus with your internal fatāwā or compliance manuals." },
             { icon: Building2, t: "Audit & governance", d: "Every query logged with reasoning trace for regulator review." },
           ].map((f) => (
-            <div key={f.t} className="rounded-3xl border border-hairline bg-surface p-7">
+            <div key={f.t} className="rounded-2xl border border-hairline bg-surface p-5 sm:rounded-3xl sm:p-7">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-jade/10 text-jade">
                 <f.icon className="h-5 w-5" strokeWidth={1.5} />
               </div>
@@ -75,7 +75,7 @@ function EnterprisePage() {
         </div>
 
         {/* Code sample */}
-        <div className="mt-20 overflow-hidden rounded-3xl border border-hairline bg-ink shadow-elegant">
+        <div className="mt-16 overflow-hidden rounded-2xl border border-hairline bg-ink shadow-elegant sm:mt-20 sm:rounded-3xl">
           <div className="flex items-center justify-between border-b border-hairline px-5 py-3">
             <div className="flex gap-1.5">
               <div className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
@@ -105,8 +105,8 @@ function EnterprisePage() {
           </pre>
         </div>
 
-        <div id="contact" className="mt-20 rounded-3xl border border-hairline bg-surface p-10 text-center">
-          <h2 className="font-display text-3xl">Let's build something trustworthy.</h2>
+        <div id="contact" className="mt-16 rounded-2xl border border-hairline bg-surface p-8 text-center sm:mt-20 sm:rounded-3xl sm:p-10">
+          <h2 className="font-display text-2xl sm:text-3xl">Let's build something trustworthy.</h2>
           <p className="mt-3 text-muted-foreground">
             We work with banks, fintechs, marketplaces, and certifiers worldwide.
           </p>
