@@ -10,7 +10,6 @@ import {
   X,
   Download,
   Share2,
-  Sparkles,
 } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { PageBackground } from "@/components/site/PageBackground";
@@ -319,8 +318,7 @@ function Hero({ onTry }: { onTry: () => void }) {
         حلال
       </div>
 
-      <div className="relative grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
-        {/* LEFT */}
+      <div className="relative mx-auto max-w-3xl text-center">
         <div className="relative animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/[0.04] px-3.5 py-1.5 text-xs text-gold">
             <span className="text-sm leading-none">🏭</span>
@@ -333,13 +331,13 @@ function Hero({ onTry }: { onTry: () => void }) {
             Into <span className="text-gradient-gold italic">Export Opportunities.</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-pretty text-base leading-relaxed text-text-secondary sm:text-lg">
+          <p className="mx-auto mt-6 max-w-xl text-pretty text-base leading-relaxed text-text-secondary sm:text-lg">
             AI-powered halal pre-certification readiness. Know exactly which ingredients
             to fix <em className="not-italic text-foreground">before</em> applying for
             JAKIM, ESMA, or HFA certification.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <button
               type="button"
               onClick={onTry}
@@ -359,8 +357,7 @@ function Hero({ onTry }: { onTry: () => void }) {
             </button>
           </div>
 
-          {/* Cert pills */}
-          <div className="mt-8 flex flex-wrap items-center gap-2">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
             {[
               { flag: "🇲🇾", name: "JAKIM Malaysia" },
               { flag: "🇦🇪", name: "ESMA UAE" },
@@ -376,150 +373,11 @@ function Hero({ onTry }: { onTry: () => void }) {
             ))}
           </div>
         </div>
-
-        {/* RIGHT — Knowledge graph */}
-        <div className="relative animate-fade-up stagger-3">
-          <KnowledgeGraph />
-        </div>
       </div>
     </section>
   );
 }
 
-/* ----- Knowledge graph ----- */
-function KnowledgeGraph() {
-  const ingredients = [
-    { name: "Gelatin", x: 60, y: 70 },
-    { name: "E471", x: 60, y: 160 },
-    { name: "Soybean Oil", x: 60, y: 250 },
-    { name: "Carmine", x: 60, y: 340 },
-  ];
-  const bodies = [
-    { name: "JAKIM", x: 360, y: 105 },
-    { name: "ESMA", x: 360, y: 205 },
-    { name: "HFA", x: 360, y: 305 },
-  ];
-
-  return (
-    <div className="relative aspect-[4/4.2] w-full max-w-[480px] mx-auto rounded-3xl border border-gold/20 bg-surface/60 p-4 backdrop-blur-xl shadow-elegant">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-6 -z-10 rounded-[3rem] opacity-70 blur-3xl"
-        style={{ background: "var(--gradient-aurora)" }}
-      />
-      <div className="absolute left-4 top-4 flex items-center gap-2">
-        <Sparkles className="h-3.5 w-3.5 text-gold" strokeWidth={2} />
-        <span className="font-mono text-[10px] uppercase tracking-widest text-text-secondary">
-          live knowledge graph
-        </span>
-      </div>
-
-      <svg viewBox="0 0 420 400" className="h-full w-full">
-        <defs>
-          <radialGradient id="node-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#C9A84C" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-
-        {/* Connections */}
-        {ingredients.map((ing) =>
-          bodies.map((b) => (
-            <line
-              key={`${ing.name}-${b.name}`}
-              x1={ing.x + 10}
-              y1={ing.y}
-              x2={b.x - 10}
-              y2={b.y}
-              stroke="#C9A84C"
-              strokeOpacity="0.28"
-              strokeWidth="0.8"
-            />
-          ))
-        )}
-        {/* Animated traveling dots */}
-        {ingredients.map((ing, i) =>
-          bodies.map((b, j) => (
-            <line
-              key={`flow-${i}-${j}`}
-              x1={ing.x + 10}
-              y1={ing.y}
-              x2={b.x - 10}
-              y2={b.y}
-              stroke="#C9A84C"
-              strokeOpacity="0.7"
-              strokeWidth="1.4"
-              className="animate-dash-flow"
-              style={{ animationDelay: `${(i + j) * 0.3}s` }}
-            />
-          ))
-        )}
-
-        {/* Ingredient nodes */}
-        {ingredients.map((ing, i) => (
-          <g key={ing.name}>
-            <circle cx={ing.x} cy={ing.y} r="22" fill="url(#node-glow)" />
-            <circle
-              cx={ing.x}
-              cy={ing.y}
-              r="7"
-              fill="#0A0A0F"
-              stroke="#C9A84C"
-              strokeWidth="1.2"
-              className="animate-node-pulse"
-              style={{ animationDelay: `${i * 0.4}s` }}
-            />
-            <text
-              x={ing.x - 28}
-              y={ing.y + 4}
-              textAnchor="end"
-              fill="#F0EDE6"
-              fontSize="11"
-              fontFamily="DM Sans, sans-serif"
-            >
-              {ing.name}
-            </text>
-          </g>
-        ))}
-
-        {/* Cert body nodes */}
-        {bodies.map((b, i) => (
-          <g key={b.name}>
-            <circle cx={b.x} cy={b.y} r="28" fill="url(#node-glow)" />
-            <circle
-              cx={b.x}
-              cy={b.y}
-              r="14"
-              fill="#111118"
-              stroke="#C9A84C"
-              strokeWidth="1.4"
-            />
-            <text
-              x={b.x}
-              y={b.y + 4}
-              textAnchor="middle"
-              fill="#C9A84C"
-              fontSize="9"
-              fontFamily="JetBrains Mono, monospace"
-              fontWeight="600"
-            >
-              {b.name}
-            </text>
-            <text
-              x={b.x + 22}
-              y={b.y + 4}
-              fill="#8A8A9A"
-              fontSize="10"
-              fontFamily="DM Sans, sans-serif"
-            >
-              {i === 0 ? "Malaysia" : i === 1 ? "UAE" : "UK"}
-            </text>
-          </g>
-        ))}
-      </svg>
-    </div>
-  );
-}
 
 /* =============================================================== */
 /*  DASHBOARD — three panels                                         */
