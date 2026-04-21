@@ -9,21 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TransparencyRouteImport } from './routes/transparency'
-import { Route as EnterpriseRouteImport } from './routes/enterprise'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as IndexRouteImport } from './routes/index'
 
-const TransparencyRoute = TransparencyRouteImport.update({
-  id: '/transparency',
-  path: '/transparency',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EnterpriseRoute = EnterpriseRouteImport.update({
-  id: '/enterprise',
-  path: '/enterprise',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AssistantRoute = AssistantRouteImport.update({
   id: '/assistant',
   path: '/assistant',
@@ -38,53 +26,31 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
-  '/enterprise': typeof EnterpriseRoute
-  '/transparency': typeof TransparencyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
-  '/enterprise': typeof EnterpriseRoute
-  '/transparency': typeof TransparencyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
-  '/enterprise': typeof EnterpriseRoute
-  '/transparency': typeof TransparencyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assistant' | '/enterprise' | '/transparency'
+  fullPaths: '/' | '/assistant'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assistant' | '/enterprise' | '/transparency'
-  id: '__root__' | '/' | '/assistant' | '/enterprise' | '/transparency'
+  to: '/' | '/assistant'
+  id: '__root__' | '/' | '/assistant'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssistantRoute: typeof AssistantRoute
-  EnterpriseRoute: typeof EnterpriseRoute
-  TransparencyRoute: typeof TransparencyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/transparency': {
-      id: '/transparency'
-      path: '/transparency'
-      fullPath: '/transparency'
-      preLoaderRoute: typeof TransparencyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/enterprise': {
-      id: '/enterprise'
-      path: '/enterprise'
-      fullPath: '/enterprise'
-      preLoaderRoute: typeof EnterpriseRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/assistant': {
       id: '/assistant'
       path: '/assistant'
@@ -105,8 +71,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssistantRoute: AssistantRoute,
-  EnterpriseRoute: EnterpriseRoute,
-  TransparencyRoute: TransparencyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
