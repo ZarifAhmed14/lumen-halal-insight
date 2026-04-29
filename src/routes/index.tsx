@@ -679,7 +679,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:py-32">
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:py-20">
       <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
         <div className="text-xs uppercase tracking-widest text-jade">{eyebrow}</div>
         <h2 className="font-display mt-4 text-balance text-3xl font-light leading-[1.1] sm:text-4xl md:text-5xl">
