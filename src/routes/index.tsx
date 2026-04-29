@@ -378,8 +378,6 @@ function PlatformDemo() {
         </motion.div>
       )}
 
-      {/* NRB Collaboration Module */}
-      <NRBModule market={activeMarket} />
     </Section>
   );
 }
