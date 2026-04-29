@@ -15,9 +15,6 @@ import {
   Check,
   AlertTriangle,
   ChevronDown,
-  MapPin,
-  Briefcase,
-  Zap,
 } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
