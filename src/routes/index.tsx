@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import {
   ArrowRight,
   ShieldCheck,
@@ -13,8 +14,12 @@ import {
   Upload,
   Check,
   AlertTriangle,
-  X,
   FileCheck2,
+  Terminal,
+  ChevronDown,
+  MapPin,
+  Briefcase,
+  Zap,
 } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
@@ -28,7 +33,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "AI-powered halal pre-certification readiness for food exporters. Know which ingredients to fix before applying for JAKIM, ESMA, or HFA certification.",
+          "AI-powered halal pre-certification readiness for food exporters. Know which ingredients to fix before applying for JAKIM, ESMA, HFA, or EU certification.",
       },
       { property: "og:title", content: "Halal Export Readiness Platform" },
       {
@@ -41,10 +46,75 @@ export const Route = createFileRoute("/")({
   component: LandingPage,
 });
 
+type Market = "MY" | "AE" | "UK" | "EU";
+const MARKETS: { id: Market; label: string; framework: string; flag: string }[] = [
+  { id: "MY", label: "Malaysia", framework: "JAKIM", flag: "🇲🇾" },
+  { id: "AE", label: "UAE", framework: "ESMA", flag: "🇦🇪" },
+  { id: "UK", label: "UK", framework: "HFA", flag: "🇬🇧" },
+  { id: "EU", label: "European Union", framework: "EU", flag: "🇪🇺" },
+];
+
+const MARKET_DATA: Record<
+  Market,
+  { score: number; gaps: { title: string; detail: string }[]; trace: { agent: string; line: string }[] }
+> = {
+  MY: {
+    score: 62,
+    gaps: [
+      { title: "Documentation Missing", detail: "E471 emulsifier — JAKIM-recognized supplier certificate not attached." },
+      { title: "Source Verification Required", detail: "Bovine glycerin origin must be traced to JAKIM-approved abattoir." },
+      { title: "Process Audit Pending", detail: "Shared production line requires segregation declaration." },
+    ],
+    trace: [
+      { agent: "Molecular Auditor", line: "Decomposing E-codes... E471 flagged for plant/animal ambiguity." },
+      { agent: "Regulatory Jurist", line: "Cross-referencing JAKIM 2024 standards... Source certificate missing." },
+      { agent: "Gap Strategist", line: "Identifying plant-based alternatives in the local supply chain..." },
+    ],
+  },
+  AE: {
+    score: 71,
+    gaps: [
+      { title: "Documentation Missing", detail: "ESMA UAE.S 2055-1:2015 supplier declaration not on file." },
+      { title: "Labeling Non-Conformance", detail: "Arabic ingredient list required for UAE retail entry." },
+    ],
+    trace: [
+      { agent: "Molecular Auditor", line: "Decomposing E-codes... All additives within ESMA tolerance." },
+      { agent: "Regulatory Jurist", line: "Cross-referencing ESMA UAE.S 2055-1... Supplier attestation absent." },
+      { agent: "Gap Strategist", line: "Drafting bilingual label template for GCC market entry..." },
+    ],
+  },
+  UK: {
+    score: 48,
+    gaps: [
+      { title: "Source Verification Required", detail: "Gelatin must originate from HFA-recognized facility." },
+      { title: "Documentation Missing", detail: "HMC/HFA chain-of-custody records absent." },
+      { title: "Process Audit Pending", detail: "Stunning method declaration not provided for meat inputs." },
+    ],
+    trace: [
+      { agent: "Molecular Auditor", line: "Decomposing E-codes... Animal-derived gelatin detected." },
+      { agent: "Regulatory Jurist", line: "Cross-referencing HFA UK 2023 standards... Chain-of-custody gap." },
+      { agent: "Gap Strategist", line: "Mapping HFA-certified UK importers for partnership..." },
+    ],
+  },
+  EU: {
+    score: 39,
+    gaps: [
+      { title: "Documentation Missing", detail: "EU 1169/2011 allergen disclosure incomplete." },
+      { title: "Source Verification Required", detail: "Halal Control / GD verification body audit pending." },
+      { title: "Process Audit Pending", detail: "Cross-contamination risk assessment required for EU entry." },
+      { title: "Labeling Non-Conformance", detail: "Multilingual nutrition panel missing." },
+    ],
+    trace: [
+      { agent: "Molecular Auditor", line: "Decomposing E-codes... Multiple flagged inputs across SKUs." },
+      { agent: "Regulatory Jurist", line: "Cross-referencing EU Halal Control 2024... Audit body unassigned." },
+      { agent: "Gap Strategist", line: "Sequencing remediation roadmap for EU export readiness..." },
+    ],
+  },
+};
+
 function LandingPage() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-background">
-      {/* Aurora background */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-[800px]"
         style={{ background: "var(--gradient-aurora)" }}
@@ -52,6 +122,8 @@ function LandingPage() {
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" />
 
       <Nav />
+
+      <LDCBanner />
 
       <main className="relative">
         <Hero />
@@ -63,6 +135,26 @@ function LandingPage() {
       </main>
 
       <Footer />
+    </div>
+  );
+}
+
+/* ============================================================ LDC INFO BANNER */
+function LDCBanner() {
+  return (
+    <div className="relative z-10 border-b border-hairline bg-surface/40 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-center gap-2.5 px-4 py-2.5 text-center text-xs sm:px-6">
+        <span className="relative flex h-1.5 w-1.5 shrink-0">
+          <span className="absolute inline-flex h-full w-full rounded-full bg-jade animate-pulse-ring" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-jade" />
+        </span>
+        <span className="text-foreground/85">
+          <span className="font-medium text-jade-glow">LDC Graduation Mode: Active.</span>{" "}
+          <span className="text-muted-foreground">
+            Optimizing for High-Value Global Exports.
+          </span>
+        </span>
+      </div>
     </div>
   );
 }
@@ -102,7 +194,7 @@ function Hero() {
           </p>
 
           <p className="mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground sm:text-base md:text-lg">
-            Know exactly which ingredients to fix before applying for JAKIM, ESMA, or HFA
+            Know exactly which ingredients to fix before applying for JAKIM, ESMA, HFA, or EU
             certification. Built for Bangladeshi manufacturers entering global markets.
           </p>
 
@@ -123,15 +215,6 @@ function Hero() {
               Upload Ingredient List
             </Link>
           </div>
-
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
-            {["JAKIM-aligned", "ESMA-aligned", "HFA-aligned", "EU-aligned"].map((p) => (
-              <div key={p} className="inline-flex items-center gap-1.5">
-                <Check className="h-3 w-3 text-jade" strokeWidth={3} />
-                <span>{p}</span>
-              </div>
-            ))}
-          </div>
         </motion.div>
       </div>
     </section>
@@ -140,11 +223,42 @@ function Hero() {
 
 /* ============================================================ PLATFORM DEMO */
 function PlatformDemo() {
+  const [market, setMarket] = useState<Market>("MY");
+  const [traceOpen, setTraceOpen] = useState(true);
+  const data = MARKET_DATA[market];
+  const activeMarket = MARKETS.find((m) => m.id === market)!;
+
   return (
     <Section
-      eyebrow="The platform"
-      title="See your compliance gaps. Before the certifier does."
+      eyebrow="Product Analysis"
+      title="See your certification readiness. Per market. In real time."
     >
+      {/* Market Segmented Control */}
+      <div className="mb-6 flex flex-col items-center gap-3">
+        <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+          Target Export Market
+        </div>
+        <div className="glass inline-flex rounded-full p-1 text-xs sm:text-sm">
+          {MARKETS.map((m) => (
+            <button
+              key={m.id}
+              onClick={() => setMarket(m.id)}
+              className={`relative rounded-full px-4 py-2 font-medium transition-all sm:px-5 ${
+                market === m.id
+                  ? "bg-foreground text-background shadow-elegant"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <span className="mr-1.5">{m.flag}</span>
+              {m.label}{" "}
+              <span className={`font-mono text-[10px] ${market === m.id ? "opacity-70" : "opacity-50"}`}>
+                ({m.framework})
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="grid gap-5 lg:grid-cols-3">
         {/* Column 1 — Product Input */}
         <motion.div
@@ -152,11 +266,9 @@ function PlatformDemo() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-3xl border border-hairline bg-surface p-6 shadow-elegant"
+          className="glass rounded-3xl p-6 shadow-elegant"
         >
-          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-            Step 1
-          </div>
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Step 1</div>
           <h3 className="font-display mt-1 text-lg text-foreground">Product Input</h3>
 
           <div className="mt-5 inline-flex rounded-full border border-hairline bg-background/40 p-1 text-xs">
@@ -180,13 +292,11 @@ function PlatformDemo() {
 
           <button className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 px-5 py-2.5 text-sm font-medium text-background transition-all hover:scale-[1.01]">
             <ScanLine className="h-4 w-4" strokeWidth={2.25} />
-            Analyze
+            Analyze for {activeMarket.framework}
           </button>
 
           <div className="mt-5 space-y-2">
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Try
-            </div>
+            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Try</div>
             <div className="flex flex-wrap gap-2">
               {["Soybean Oil", "Beef Sausage", "Mixed Biscuit"].map((p) => (
                 <span
@@ -200,56 +310,75 @@ function PlatformDemo() {
           </div>
         </motion.div>
 
-        {/* Column 2 — Ingredient Analysis */}
+        {/* Column 2 — Readiness Score (Radial Gauge) */}
         <motion.div
+          key={`gauge-${market}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="rounded-3xl border border-hairline bg-surface p-6 shadow-elegant"
+          className="glass rounded-3xl p-6 shadow-elegant"
         >
-          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-            Step 2
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                Step 2
+              </div>
+              <h3 className="font-display mt-1 text-lg text-foreground">Readiness Score</h3>
+            </div>
+            <div className="rounded-full border border-jade/30 bg-jade/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-jade-glow">
+              {activeMarket.framework}
+            </div>
           </div>
-          <h3 className="font-display mt-1 text-lg text-foreground">Ingredient Analysis</h3>
 
-          <div className="mt-5 space-y-2.5">
-            <IngredientRow
-              name="Salt"
-              status="halal"
-              note=""
-            />
-            <IngredientRow
-              name="E471 — Mono/Di-glycerides"
-              status="verify"
-              note="Source documentation required"
-            />
-            <IngredientRow
-              name="Pork Gelatin"
-              status="haram"
-              note="Must be removed before certification"
-            />
+          <RadialGauge value={data.score} />
+
+          <div className="mt-2 text-center text-xs text-muted-foreground">
+            Certification Readiness for{" "}
+            <span className="text-foreground/90">
+              {activeMarket.flag} {activeMarket.label}
+            </span>
           </div>
         </motion.div>
 
-        {/* Column 3 — Market Readiness */}
+        {/* Column 3 — Compliance Gaps */}
         <motion.div
+          key={`gaps-${market}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="rounded-3xl border border-hairline bg-surface p-6 shadow-elegant"
+          className="glass rounded-3xl p-6 shadow-elegant"
         >
-          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-            Step 3
-          </div>
-          <h3 className="font-display mt-1 text-lg text-foreground">Market Readiness</h3>
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Step 3</div>
+          <h3 className="font-display mt-1 text-lg text-foreground">Compliance Gaps</h3>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {data.gaps.length} item{data.gaps.length === 1 ? "" : "s"} to address before applying
+            for {activeMarket.framework}.
+          </p>
 
-          <div className="mt-5 space-y-3.5">
-            <MarketRow flag="🇲🇾" market="Malaysia JAKIM" pct={42} status="amber" label="Nearly Ready" />
-            <MarketRow flag="🇦🇪" market="UAE ESMA" pct={58} status="amber" label="Nearly Ready" />
-            <MarketRow flag="🇬🇧" market="UK HFA" pct={31} status="red" label="Gaps Found" />
-            <MarketRow flag="🇪🇺" market="EU" pct={28} status="red" label="Gaps Found" />
+          <div className="mt-5 space-y-2.5">
+            {data.gaps.map((g) => (
+              <div
+                key={g.title}
+                className="rounded-xl border border-hairline bg-background/40 p-3.5"
+                style={{ borderLeft: "3px solid var(--safety-orange)" }}
+              >
+                <div className="flex items-start gap-2.5">
+                  <AlertTriangle
+                    className="mt-0.5 h-3.5 w-3.5 shrink-0"
+                    strokeWidth={2.5}
+                    style={{ color: "var(--safety-orange)" }}
+                  />
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--safety-orange)" }}>
+                      {g.title}
+                    </div>
+                    <p className="mt-1 text-xs leading-relaxed text-foreground/80">{g.detail}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
           <button className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 px-5 py-2.5 text-sm font-medium text-background transition-all hover:scale-[1.01]">
@@ -258,96 +387,217 @@ function PlatformDemo() {
           </button>
         </motion.div>
       </div>
+
+      {/* Agent Trace Panel */}
+      <div className="mt-6">
+        <div className="overflow-hidden rounded-3xl border border-hairline bg-ink/80 shadow-elegant">
+          <button
+            onClick={() => setTraceOpen((v) => !v)}
+            className="flex w-full items-center justify-between gap-3 px-5 py-3.5 text-left transition-colors hover:bg-foreground/[0.02]"
+          >
+            <div className="flex items-center gap-2.5">
+              <Terminal className="h-4 w-4 text-jade" />
+              <span className="font-mono text-xs uppercase tracking-widest text-foreground/80">
+                Technical Trace · Agent Orchestration
+              </span>
+              <span className="hidden font-mono text-[10px] text-muted-foreground sm:inline">
+                — live thought process
+              </span>
+            </div>
+            <ChevronDown
+              className={`h-4 w-4 text-muted-foreground transition-transform ${
+                traceOpen ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {traceOpen && (
+            <motion.div
+              key={`trace-${market}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4 }}
+              className="border-t border-hairline px-5 py-5"
+              style={{ background: "oklch(0.1 0.012 240)" }}
+            >
+              <div className="font-mono text-xs leading-relaxed">
+                {data.trace.map((t, i) => (
+                  <motion.div
+                    key={`${market}-${i}`}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.25, duration: 0.3 }}
+                    className="flex items-start gap-3 py-1.5"
+                  >
+                    <span className="select-none text-jade">›</span>
+                    <span className="shrink-0 text-jade-glow">[{t.agent}]:</span>
+                    <span className="text-foreground/75">{t.line}</span>
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: data.trace.length * 0.25 + 0.2 }}
+                  className="mt-2 flex items-center gap-2 text-foreground/40"
+                >
+                  <span className="text-jade">›</span>
+                  <span>Awaiting next instruction</span>
+                  <span className="inline-block h-3 w-1.5 animate-pulse bg-jade" />
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </div>
+
+      {/* NRB Collaboration Module */}
+      <NRBModule market={activeMarket} />
     </Section>
   );
 }
 
-function IngredientRow({
-  name,
-  status,
-  note,
-}: {
-  name: string;
-  status: "halal" | "verify" | "haram";
-  note: string;
-}) {
-  const cfg = {
-    halal: {
-      label: "HALAL",
-      icon: Check,
-      color: "text-verdict-halal",
-      bg: "bg-verdict-halal/10",
-      border: "border-verdict-halal/30",
-    },
-    verify: {
-      label: "VERIFY",
-      icon: AlertTriangle,
-      color: "text-verdict-mushbooh",
-      bg: "bg-verdict-mushbooh/10",
-      border: "border-verdict-mushbooh/30",
-    },
-    haram: {
-      label: "HARAM",
-      icon: X,
-      color: "text-verdict-haram",
-      bg: "bg-verdict-haram/10",
-      border: "border-verdict-haram/30",
-    },
-  }[status];
-  const Icon = cfg.icon;
+/* ============================================================ RADIAL GAUGE */
+function RadialGauge({ value }: { value: number }) {
+  const size = 200;
+  const stroke = 14;
+  const radius = (size - stroke) / 2;
+  const circ = 2 * Math.PI * radius;
+  const offset = circ - (value / 100) * circ;
+
+  // Color based on score
+  const color =
+    value >= 80
+      ? "var(--verdict-halal)"
+      : value >= 50
+        ? "var(--verdict-mushbooh)"
+        : "var(--safety-orange)";
+
+  const label =
+    value >= 80 ? "Export Ready" : value >= 50 ? "Nearly Ready" : "Significant Gaps";
+
   return (
-    <div className="rounded-xl border border-hairline bg-background/40 p-3.5">
-      <div className="flex items-start justify-between gap-3">
-        <div className="text-sm text-foreground/90">{name}</div>
+    <div className="relative mx-auto mt-5 flex items-center justify-center" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="-rotate-90">
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          stroke="oklch(1 0 0 / 0.06)"
+          strokeWidth={stroke}
+          fill="none"
+        />
+        <motion.circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          stroke={color}
+          strokeWidth={stroke}
+          strokeLinecap="round"
+          fill="none"
+          strokeDasharray={circ}
+          initial={{ strokeDashoffset: circ }}
+          animate={{ strokeDashoffset: offset }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          style={{ filter: `drop-shadow(0 0 12px ${color})` }}
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="font-display text-5xl font-light text-foreground">
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            {value}
+          </motion.span>
+          <span className="text-2xl text-muted-foreground">%</span>
+        </div>
         <div
-          className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wider ${cfg.border} ${cfg.bg} ${cfg.color}`}
+          className="mt-1 text-[10px] font-semibold uppercase tracking-widest"
+          style={{ color }}
         >
-          <Icon className="h-3 w-3" strokeWidth={2.5} />
-          {cfg.label}
+          {label}
         </div>
       </div>
-      {note && <p className="mt-2 text-xs text-muted-foreground">{note}</p>}
     </div>
   );
 }
 
-function MarketRow({
-  flag,
-  market,
-  pct,
-  status,
-  label,
-}: {
-  flag: string;
-  market: string;
-  pct: number;
-  status: "amber" | "red";
-  label: string;
-}) {
-  const colorVar = status === "amber" ? "var(--verdict-mushbooh)" : "var(--verdict-haram)";
-  const textColor = status === "amber" ? "text-verdict-mushbooh" : "text-verdict-haram";
+/* ============================================================ NRB MODULE */
+function NRBModule({ market }: { market: (typeof MARKETS)[number] }) {
+  const consultants = [
+    {
+      name: "Tariq Rahman",
+      location: "London, UK",
+      expertise: "HFA & EU Halal Audits · Meat & Confectionery",
+      tag: "12 yrs",
+    },
+    {
+      name: "Ayesha Karim",
+      location: "Dubai, UAE",
+      expertise: "ESMA / GCC Market Access · Bilingual Labeling",
+      tag: "9 yrs",
+    },
+    {
+      name: "Imran Choudhury",
+      location: "Kuala Lumpur, MY",
+      expertise: "JAKIM Pre-Audit · Supply Chain Segregation",
+      tag: "15 yrs",
+    },
+  ];
+
   return (
-    <div>
-      <div className="flex items-center justify-between text-sm">
-        <div className="flex items-center gap-2">
-          <span className="text-base leading-none">{flag}</span>
-          <span className="text-foreground/90">{market}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className={`font-mono text-xs ${textColor}`}>{pct}%</span>
-        </div>
+    <div className="mt-12">
+      <div className="mb-8 text-center">
+        <div className="text-xs uppercase tracking-widest text-jade">Remediation & Market Access</div>
+        <h3 className="font-display mt-3 text-balance text-2xl font-light leading-tight sm:text-3xl">
+          Close the gap with{" "}
+          <span className="italic text-gradient-jade">NRB Export Consultants</span> on the ground in{" "}
+          {market.label}.
+        </h3>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Closing the gap for the Post-2026 LDC Transition.
+        </p>
       </div>
-      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-foreground/10">
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${pct}%` }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="h-full"
-          style={{ background: colorVar }}
-        />
+
+      <div className="grid gap-4 md:grid-cols-3">
+        {consultants.map((c, i) => (
+          <motion.div
+            key={c.name}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.08, duration: 0.5 }}
+            className="glass group flex flex-col rounded-3xl p-5 transition-all hover:border-jade/30"
+          >
+            <div className="flex items-start justify-between">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-foreground/5 font-display text-base text-jade-glow">
+                {c.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")}
+              </div>
+              <span className="rounded-full border border-hairline bg-background/40 px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
+                {c.tag}
+              </span>
+            </div>
+            <div className="mt-4 font-display text-lg text-foreground">{c.name}</div>
+            <div className="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+              <MapPin className="h-3 w-3 text-jade" />
+              {c.location}
+            </div>
+            <div className="mt-3 inline-flex items-start gap-1.5 text-xs text-foreground/75">
+              <Briefcase className="mt-0.5 h-3 w-3 shrink-0 text-jade" />
+              <span>{c.expertise}</span>
+            </div>
+
+            <button className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-hairline bg-foreground/5 px-4 py-2.5 text-xs font-medium text-foreground transition-all hover:border-jade/40 hover:bg-jade/10 hover:text-jade-glow">
+              <Zap className="h-3.5 w-3.5" strokeWidth={2.25} />
+              Consult with Expert
+            </button>
+          </motion.div>
+        ))}
       </div>
-      <div className={`mt-1.5 text-[10px] uppercase tracking-widest ${textColor}`}>{label}</div>
     </div>
   );
 }
@@ -425,10 +675,7 @@ function DomainsSection() {
     },
   ];
   return (
-    <Section
-      eyebrow="Coverage"
-      title="Every category. Every market. One readiness report."
-    >
+    <Section eyebrow="Coverage" title="Every category. Every market. One readiness report.">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {domains.map((d, i) => (
           <motion.div
@@ -467,12 +714,8 @@ function DomainsSection() {
 /* ============================================================ PRODUCT SHOWCASE */
 function ProductShowcase() {
   return (
-    <Section
-      eyebrow="The interface"
-      title="Designed for clarity. Engineered for nuance."
-    >
+    <Section eyebrow="The interface" title="Designed for clarity. Engineered for nuance.">
       <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-        {/* Opinion comparison matrix */}
         <div className="glass rounded-3xl p-6 shadow-elegant">
           <div className="flex items-center justify-between">
             <div>
@@ -501,7 +744,7 @@ function ProductShowcase() {
                     whileInView={{ width: `${s.lean}%` }}
                     viewport={{ once: true }}
                     transition={{ duration: 1, ease: "easeOut" }}
-                    className={`h-full bg-${s.color}`}
+                    className="h-full"
                     style={{ background: `var(--${s.color})` }}
                   />
                 </div>
@@ -510,7 +753,6 @@ function ProductShowcase() {
           </div>
         </div>
 
-        {/* Confidence + reasoning panel */}
         <div className="space-y-6">
           <div className="rounded-3xl border border-hairline bg-surface p-6">
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
