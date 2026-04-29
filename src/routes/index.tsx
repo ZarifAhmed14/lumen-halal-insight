@@ -4,19 +4,17 @@ import {
   ArrowRight,
   ShieldCheck,
   Sparkles,
-  Wallet,
   Apple,
   Heart,
-  Building2,
+  Pill,
+  Globe2,
   ArrowUpRight,
-  Quote,
-  QrCode,
   ScanLine,
-  Mic,
-  Paperclip,
-  BookOpen,
+  Upload,
   Check,
-  PlayCircle,
+  AlertTriangle,
+  X,
+  FileCheck2,
 } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
@@ -26,16 +24,17 @@ import { Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Halal Intelligence Platform — Trusted AI for Halal Decisions" },
+      { title: "Halal Export Readiness Platform — AI Pre-Certification for Manufacturers" },
       {
         name: "description",
         content:
-          "An evidence-grounded, privacy-first intelligence layer for halal-aware decisions across finance, food, lifestyle, and enterprise.",
+          "AI-powered halal pre-certification readiness for food exporters. Know which ingredients to fix before applying for JAKIM, ESMA, or HFA certification.",
       },
-      { property: "og:title", content: "Halal Intelligence Platform" },
+      { property: "og:title", content: "Halal Export Readiness Platform" },
       {
         property: "og:description",
-        content: "A trustworthy halal-aware intelligence layer for modern life.",
+        content:
+          "AI-powered halal pre-certification readiness for Bangladeshi manufacturers entering global markets.",
       },
     ],
   }),
@@ -56,11 +55,10 @@ function LandingPage() {
 
       <main className="relative">
         <Hero />
-        <TrustStrip />
+        <PlatformDemo />
         <HowItWorks />
         <DomainsSection />
         <ProductShowcase />
-        <TestimonialsSection />
         <FinalCTA />
       </main>
 
@@ -73,7 +71,6 @@ function LandingPage() {
 function Hero() {
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-6 sm:pt-20 sm:pb-28 md:pt-24">
-      {/* Floating Arabic accent — sacred, never decorative */}
       <div
         aria-hidden
         className="font-arabic pointer-events-none absolute right-4 top-12 select-none text-[120px] leading-none text-jade/[0.06] sm:right-10 sm:top-16 sm:text-[180px] md:text-[240px]"
@@ -81,247 +78,298 @@ function Hero() {
         حلال
       </div>
 
-      <div className="relative grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
-        {/* LEFT — Copy column */}
+      <div className="relative mx-auto max-w-3xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/60 px-3.5 py-1.5 text-xs text-muted-foreground backdrop-blur">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full rounded-full bg-jade animate-pulse-ring" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-jade" />
             </span>
-            Now in private beta · v1.0
+            For halal food exporters · Private beta
           </div>
 
           <h1 className="font-display mt-7 text-balance text-[2.6rem] font-light leading-[1.02] text-foreground sm:text-6xl md:text-7xl">
-            Clarity in every{" "}
-            <span className="italic text-gradient-jade">halal</span>{" "}
-            decision.
+            Turn Ingredients Into{" "}
+            <span className="italic text-gradient-jade">Export Opportunities.</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground sm:text-base md:text-lg">
-            A source-grounded reasoning system for finance, food, and everyday life.
-            Every verdict is traced to scholarly evidence — never invented, never guessed.
+          <p className="font-display mt-5 text-pretty text-xl italic text-jade-glow sm:text-2xl">
+            AI-powered halal pre-certification readiness.
           </p>
 
-          {/* Pillars row */}
-          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
-            {["Source-traced", "Scholar-reviewed", "Privacy-first"].map((p) => (
+          <p className="mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground sm:text-base md:text-lg">
+            Know exactly which ingredients to fix before applying for JAKIM, ESMA, or HFA
+            certification. Built for Bangladeshi manufacturers entering global markets.
+          </p>
+
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/assistant"
+              className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-all hover:scale-[1.02] glow-jade"
+            >
+              <ScanLine className="h-4 w-4" strokeWidth={2} />
+              Scan Your Product
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+            <Link
+              to="/assistant"
+              className="group inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/60 px-5 py-3 text-sm text-foreground backdrop-blur transition-colors hover:bg-surface"
+            >
+              <Upload className="h-4 w-4 text-jade" strokeWidth={1.75} />
+              Upload Ingredient List
+            </Link>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted-foreground">
+            {["JAKIM-aligned", "ESMA-aligned", "HFA-aligned", "EU-aligned"].map((p) => (
               <div key={p} className="inline-flex items-center gap-1.5">
                 <Check className="h-3 w-3 text-jade" strokeWidth={3} />
                 <span>{p}</span>
               </div>
             ))}
           </div>
-
-          {/* CTAs */}
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <Link
-              to="/assistant"
-              className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-all hover:scale-[1.02] glow-jade"
-            >
-              Try Halal Intelligence
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-            <Link
-              to="/transparency"
-              className="group inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/60 px-5 py-3 text-sm text-foreground backdrop-blur transition-colors hover:bg-surface"
-            >
-              <PlayCircle className="h-4 w-4 text-jade" strokeWidth={1.5} />
-              See how it works
-            </Link>
-          </div>
-
-          {/* Capture modes — quieter, multimodal entry points */}
-          <div className="mt-10 flex flex-wrap items-center gap-2">
-            <span className="text-[10px] uppercase tracking-widest text-muted-foreground/70">
-              Or capture
-            </span>
-            <span className="h-px w-6 bg-hairline" />
-            {[
-              { icon: QrCode, label: "QR" },
-              { icon: ScanLine, label: "Image" },
-              { icon: Mic, label: "Voice" },
-              { icon: Paperclip, label: "Attach" },
-            ].map((m) => (
-              <Link
-                key={m.label}
-                to="/assistant"
-                className="group inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface/40 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur transition-colors hover:border-jade/40 hover:bg-surface hover:text-foreground"
-              >
-                <m.icon className="h-3.5 w-3.5 text-jade" strokeWidth={1.75} />
-                {m.label}
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* RIGHT — Premium Answer Card centerpiece */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="relative"
-        >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] opacity-60 blur-3xl"
-            style={{ background: "var(--gradient-aurora)" }}
-          />
-
-          <HeroAnswerCard />
-
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="absolute -bottom-4 -left-4 hidden items-center gap-2 rounded-full border border-hairline bg-background/90 px-3 py-1.5 text-[11px] text-muted-foreground shadow-elegant backdrop-blur sm:inline-flex"
-          >
-            <Sparkles className="h-3 w-3 text-jade" />
-            <span className="font-mono">Live response · 1.2s</span>
-          </motion.div>
         </motion.div>
       </div>
     </section>
   );
 }
 
-/* ----- Hero answer card (premium centerpiece) ----- */
-function HeroAnswerCard() {
+/* ============================================================ PLATFORM DEMO */
+function PlatformDemo() {
   return (
-    <div className="group relative overflow-hidden rounded-[1.75rem] border border-hairline bg-surface/80 p-1.5 shadow-elegant backdrop-blur-xl transition-transform duration-500 hover:-translate-y-1">
-      <div className="relative rounded-[1.4rem] bg-gradient-to-b from-surface-elevated to-surface p-5 sm:p-6">
-        {/* Window chrome */}
-        <div className="flex items-center justify-between border-b border-hairline pb-3.5">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
-            <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
-            <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
+    <Section
+      eyebrow="The platform"
+      title="See your compliance gaps. Before the certifier does."
+    >
+      <div className="grid gap-5 lg:grid-cols-3">
+        {/* Column 1 — Product Input */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="rounded-3xl border border-hairline bg-surface p-6 shadow-elegant"
+        >
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            Step 1
           </div>
-          <div className="font-mono text-[10px] tracking-wider text-muted-foreground/70">
-            halal-intel · v1.0
+          <h3 className="font-display mt-1 text-lg text-foreground">Product Input</h3>
+
+          <div className="mt-5 inline-flex rounded-full border border-hairline bg-background/40 p-1 text-xs">
+            {["Barcode", "Upload", "Manual"].map((t, i) => (
+              <button
+                key={t}
+                className={`rounded-full px-3 py-1.5 transition-colors ${
+                  i === 0
+                    ? "bg-foreground text-background"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {t}
+              </button>
+            ))}
           </div>
-        </div>
 
-        {/* Question */}
-        <div className="mt-4 flex items-start gap-3">
-          <div className="font-mono mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-foreground/5 text-[10px] text-muted-foreground">
-            Q
+          <div className="mt-4 rounded-xl border border-hairline bg-background/40 px-3.5 py-3 text-xs text-muted-foreground">
+            Enter barcode or product name...
           </div>
-          <p className="text-[14px] leading-relaxed text-foreground/90">
-            Is this tech-sector ETF halal? It holds{" "}
-            <span className="text-foreground">3.8% conventional banks</span>.
-          </p>
-        </div>
 
-        {/* Verdict header */}
-        <div className="mt-5 flex flex-wrap items-center gap-3 rounded-2xl border border-jade/20 bg-jade/[0.04] p-3.5">
-          <VerdictBadge verdict="halal" size="lg" />
-          <div className="ml-auto flex items-center gap-1.5">
-            <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              Confidence
-            </span>
-            <span className="font-mono text-sm font-medium text-jade-glow">92%</span>
+          <button className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 px-5 py-2.5 text-sm font-medium text-background transition-all hover:scale-[1.01]">
+            <ScanLine className="h-4 w-4" strokeWidth={2.25} />
+            Analyze
+          </button>
+
+          <div className="mt-5 space-y-2">
+            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              Try
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {["Soybean Oil", "Beef Sausage", "Mixed Biscuit"].map((p) => (
+                <span
+                  key={p}
+                  className="inline-flex items-center rounded-full border border-hairline bg-background/40 px-3 py-1 text-xs text-foreground/85 transition-colors hover:border-jade/40"
+                >
+                  {p}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Answer */}
-        <p className="mt-4 text-[13.5px] leading-relaxed text-foreground/80">
-          Permissible under AAOIFI tolerance (incidental income &lt; 5%).{" "}
-          <span className="text-foreground">Purify ~3.8%</span> of dividends as{" "}
-          <em className="font-display italic">ṣadaqah</em>.
-        </p>
+        {/* Column 2 — Ingredient Analysis */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="rounded-3xl border border-hairline bg-surface p-6 shadow-elegant"
+        >
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            Step 2
+          </div>
+          <h3 className="font-display mt-1 text-lg text-foreground">Ingredient Analysis</h3>
 
-        {/* Confidence meter */}
-        <div className="mt-4 grid gap-[3px]" style={{ gridTemplateColumns: "repeat(20, 1fr)" }}>
-          {Array.from({ length: 20 }).map((_, i) => (
-            <div
-              key={i}
-              className={`h-1.5 rounded-sm ${
-                i < 18 ? "bg-jade/80" : i < 19 ? "bg-jade/30" : "bg-foreground/10"
-              }`}
+          <div className="mt-5 space-y-2.5">
+            <IngredientRow
+              name="Salt"
+              status="halal"
+              note=""
             />
-          ))}
-        </div>
-
-        {/* Sources */}
-        <div className="mt-5 space-y-1.5">
-          <div className="flex items-center justify-between">
-            <div className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
-              Grounded in
-            </div>
-            <div className="font-mono text-[10px] text-muted-foreground/70">3 sources</div>
+            <IngredientRow
+              name="E471 — Mono/Di-glycerides"
+              status="verify"
+              note="Source documentation required"
+            />
+            <IngredientRow
+              name="Pork Gelatin"
+              status="haram"
+              note="Must be removed before certification"
+            />
           </div>
-          {[
-            { label: "AAOIFI Standard 21 §3.4", tag: "Standard" },
-            { label: "Usmani — Intro to Islamic Finance", tag: "Treatise" },
-            { label: "ISRA Screening Methodology", tag: "Research" },
-          ].map((s) => (
-            <div
-              key={s.label}
-              className="flex items-center justify-between rounded-lg border border-hairline bg-background/40 px-3 py-2 transition-colors hover:border-jade/30"
-            >
-              <div className="flex items-center gap-2.5">
-                <BookOpen className="h-3 w-3 text-jade" strokeWidth={2} />
-                <span className="text-xs text-foreground/85">{s.label}</span>
-              </div>
-              <span className="font-mono text-[9px] uppercase tracking-wider text-muted-foreground/70">
-                {s.tag}
-              </span>
-            </div>
-          ))}
+        </motion.div>
+
+        {/* Column 3 — Market Readiness */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="rounded-3xl border border-hairline bg-surface p-6 shadow-elegant"
+        >
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            Step 3
+          </div>
+          <h3 className="font-display mt-1 text-lg text-foreground">Market Readiness</h3>
+
+          <div className="mt-5 space-y-3.5">
+            <MarketRow flag="🇲🇾" market="Malaysia JAKIM" pct={42} status="amber" label="Nearly Ready" />
+            <MarketRow flag="🇦🇪" market="UAE ESMA" pct={58} status="amber" label="Nearly Ready" />
+            <MarketRow flag="🇬🇧" market="UK HFA" pct={31} status="red" label="Gaps Found" />
+            <MarketRow flag="🇪🇺" market="EU" pct={28} status="red" label="Gaps Found" />
+          </div>
+
+          <button className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 px-5 py-2.5 text-sm font-medium text-background transition-all hover:scale-[1.01]">
+            <FileCheck2 className="h-4 w-4" strokeWidth={2.25} />
+            Generate Readiness Passport
+          </button>
+        </motion.div>
+      </div>
+    </Section>
+  );
+}
+
+function IngredientRow({
+  name,
+  status,
+  note,
+}: {
+  name: string;
+  status: "halal" | "verify" | "haram";
+  note: string;
+}) {
+  const cfg = {
+    halal: {
+      label: "HALAL",
+      icon: Check,
+      color: "text-verdict-halal",
+      bg: "bg-verdict-halal/10",
+      border: "border-verdict-halal/30",
+    },
+    verify: {
+      label: "VERIFY",
+      icon: AlertTriangle,
+      color: "text-verdict-mushbooh",
+      bg: "bg-verdict-mushbooh/10",
+      border: "border-verdict-mushbooh/30",
+    },
+    haram: {
+      label: "HARAM",
+      icon: X,
+      color: "text-verdict-haram",
+      bg: "bg-verdict-haram/10",
+      border: "border-verdict-haram/30",
+    },
+  }[status];
+  const Icon = cfg.icon;
+  return (
+    <div className="rounded-xl border border-hairline bg-background/40 p-3.5">
+      <div className="flex items-start justify-between gap-3">
+        <div className="text-sm text-foreground/90">{name}</div>
+        <div
+          className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wider ${cfg.border} ${cfg.bg} ${cfg.color}`}
+        >
+          <Icon className="h-3 w-3" strokeWidth={2.5} />
+          {cfg.label}
         </div>
       </div>
-
-      {/* Top scanline */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-jade/40 to-transparent"
-      />
+      {note && <p className="mt-2 text-xs text-muted-foreground">{note}</p>}
     </div>
   );
 }
 
-/* ============================================================ TRUST STRIP */
-function TrustStrip() {
+function MarketRow({
+  flag,
+  market,
+  pct,
+  status,
+  label,
+}: {
+  flag: string;
+  market: string;
+  pct: number;
+  status: "amber" | "red";
+  label: string;
+}) {
+  const colorVar = status === "amber" ? "var(--verdict-mushbooh)" : "var(--verdict-haram)";
+  const textColor = status === "amber" ? "text-verdict-mushbooh" : "text-verdict-haram";
   return (
-    <section className="border-y border-hairline bg-surface/30">
-      <div className="mx-auto max-w-7xl px-6 py-10">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          {[
-            { num: "12,400+", label: "Verified rulings" },
-            { num: "180+", label: "Scholarly references" },
-            { num: "100%", label: "Source-traceable" },
-            { num: "0", label: "Data leaves device" },
-          ].map((s) => (
-            <div key={s.label} className="text-center md:text-left">
-              <div className="font-display text-3xl text-foreground">{s.num}</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
-                {s.label}
-              </div>
-            </div>
-          ))}
+    <div>
+      <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-base leading-none">{flag}</span>
+          <span className="text-foreground/90">{market}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className={`font-mono text-xs ${textColor}`}>{pct}%</span>
         </div>
       </div>
-    </section>
+      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-foreground/10">
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: `${pct}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="h-full"
+          style={{ background: colorVar }}
+        />
+      </div>
+      <div className={`mt-1.5 text-[10px] uppercase tracking-widest ${textColor}`}>{label}</div>
+    </div>
   );
 }
-
 
 /* ============================================================ HOW IT WORKS */
 function HowItWorks() {
   const steps = [
-    { n: "01", t: "You ask", d: "In natural language. Any domain." },
-    { n: "02", t: "We retrieve", d: "From a curated, scholar-reviewed knowledge corpus." },
-    { n: "03", t: "We reason", d: "Across principles, context, and differing positions." },
-    { n: "04", t: "You decide", d: "With evidence, confidence, and the safer path noted." },
+    { n: "01", t: "You scan", d: "Barcode, document upload, or manual entry." },
+    { n: "02", t: "We extract", d: "Every ingredient identified and normalized." },
+    {
+      n: "03",
+      t: "We analyze",
+      d: "Knowledge graph checks each ingredient against JAKIM, ESMA, HFA, and EU standards simultaneously.",
+    },
+    {
+      n: "04",
+      t: "You export",
+      d: "Gap report shows exactly what to fix before applying for certification.",
+    },
   ];
   return (
-    <Section eyebrow="How it works" title="From question to clarity, in four traceable steps.">
+    <Section eyebrow="How it works" title="From ingredient list to export-ready, in four steps.">
       <div className="relative">
         <div className="absolute left-0 right-0 top-12 hidden h-px bg-gradient-to-r from-transparent via-jade/40 to-transparent md:block" />
         <div className="grid gap-8 md:grid-cols-4">
@@ -350,15 +398,36 @@ function HowItWorks() {
 /* ============================================================ DOMAINS */
 function DomainsSection() {
   const domains = [
-    { icon: Wallet, t: "Finance", d: "Stock screening · Sukuk · Mortgages · Crypto", verdict: "halal" as const },
-    { icon: Apple, t: "Food", d: "Ingredients · E-numbers · Brands · Restaurants", verdict: "mushbooh" as const },
-    { icon: Heart, t: "Lifestyle", d: "Cosmetics · Pharmaceuticals · Daily choices", verdict: "ikhtilaf" as const },
-    { icon: Building2, t: "Enterprise", d: "Compliance APIs · Internal copilots · Audit trails", verdict: "halal" as const },
+    {
+      icon: Apple,
+      t: "Food & Beverages",
+      d: "E-numbers · Additives · Processing aids · Flavorings",
+      verdict: "mushbooh" as const,
+    },
+    {
+      icon: Heart,
+      t: "Cosmetics & Personal Care",
+      d: "Ingredients · Animal derivatives · Alcohol content · Carrier agents",
+      verdict: "mushbooh" as const,
+      customBadge: "verify",
+    },
+    {
+      icon: Pill,
+      t: "Pharmaceuticals",
+      d: "Excipients · Capsule shells · Gelatin sources · Coating agents",
+      verdict: "mushbooh" as const,
+    },
+    {
+      icon: Globe2,
+      t: "Export Compliance",
+      d: "JAKIM · ESMA · HFA · EU certification readiness",
+      verdict: "halal" as const,
+    },
   ];
   return (
     <Section
-      eyebrow="One platform, every domain"
-      title="A coherent intelligence surface across the choices that shape a Muslim life."
+      eyebrow="Coverage"
+      title="Every category. Every market. One readiness report."
     >
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {domains.map((d, i) => (
@@ -379,7 +448,14 @@ function DomainsSection() {
             <h3 className="mt-6 font-display text-xl">{d.t}</h3>
             <p className="mt-1.5 text-xs text-muted-foreground">{d.d}</p>
             <div className="mt-5">
-              <VerdictBadge verdict={d.verdict} size="sm" />
+              {d.customBadge === "verify" ? (
+                <div className="inline-flex items-center gap-1.5 rounded-full border border-verdict-mushbooh/30 bg-verdict-mushbooh/10 px-2.5 py-1 text-xs font-medium text-verdict-mushbooh">
+                  <AlertTriangle className="h-3 w-3" strokeWidth={2.5} />
+                  Verify
+                </div>
+              ) : (
+                <VerdictBadge verdict={d.verdict} size="sm" />
+              )}
             </div>
           </motion.div>
         ))}
@@ -473,54 +549,6 @@ function ProductShowcase() {
             </div>
           </div>
         </div>
-      </div>
-    </Section>
-  );
-}
-
-
-
-/* ============================================================ TESTIMONIALS */
-function TestimonialsSection() {
-  const t = [
-    {
-      q: "The first AI I would actually trust to discuss matters of dīn. The transparency layer is unprecedented.",
-      a: "Dr. Yasmin K.",
-      r: "Islamic Finance Researcher",
-    },
-    {
-      q: "We integrated the API into our screening dashboard in a weekend. Our analysts finally trust the explanations.",
-      a: "Omar R.",
-      r: "Head of Compliance, MENA Capital",
-    },
-    {
-      q: "It treats ikhtilāf with the seriousness scholars demand. That alone sets it apart from every consumer app.",
-      a: "Sh. Abdul-Hakim",
-      r: "Faculty, Zaytuna Institute",
-    },
-  ];
-  return (
-    <Section eyebrow="Voices" title="Trusted by scholars, researchers, and operators.">
-      <div className="grid gap-5 md:grid-cols-3">
-        {t.map((it, i) => (
-          <motion.div
-            key={it.a}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="rounded-2xl border border-hairline bg-surface p-7"
-          >
-            <Quote className="h-5 w-5 text-jade/60" strokeWidth={1.5} />
-            <p className="font-display mt-4 text-pretty text-lg leading-relaxed text-foreground/90">
-              "{it.q}"
-            </p>
-            <div className="mt-6 border-t border-hairline pt-4">
-              <div className="text-sm font-medium">{it.a}</div>
-              <div className="text-xs text-muted-foreground">{it.r}</div>
-            </div>
-          </motion.div>
-        ))}
       </div>
     </Section>
   );
