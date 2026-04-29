@@ -627,7 +627,7 @@ function ProductShowcase() {
 /* ============================================================ FINAL CTA */
 function FinalCTA() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-32">
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
       <div className="relative overflow-hidden rounded-[1.5rem] border border-jade/20 bg-gradient-to-br from-surface via-background to-surface p-8 text-center sm:rounded-[2rem] sm:p-12 md:p-20">
         <div className="bg-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
         <div
