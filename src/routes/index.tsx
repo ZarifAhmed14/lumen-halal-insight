@@ -14,8 +14,6 @@ import {
   Upload,
   Check,
   AlertTriangle,
-  FileCheck2,
-  Terminal,
   ChevronDown,
   MapPin,
   Briefcase,
@@ -224,20 +222,14 @@ function Hero() {
 /* ============================================================ PLATFORM DEMO */
 function PlatformDemo() {
   const [market, setMarket] = useState<Market>("MY");
-  const [traceOpen, setTraceOpen] = useState(true);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const data = MARKET_DATA[market];
   const activeMarket = MARKETS.find((m) => m.id === market)!;
 
   return (
-    <Section
-      eyebrow="Product Analysis"
-      title="See your certification readiness. Per market. In real time."
-    >
+    <Section eyebrow="Product Analysis" title="Check your product's halal export readiness.">
       {/* Market Segmented Control */}
-      <div className="mb-6 flex flex-col items-center gap-3">
-        <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-          Target Export Market
-        </div>
+      <div className="mb-8 flex justify-center">
         <div className="glass inline-flex rounded-full p-1 text-xs sm:text-sm">
           {MARKETS.map((m) => (
             <button
@@ -250,10 +242,7 @@ function PlatformDemo() {
               }`}
             >
               <span className="mr-1.5">{m.flag}</span>
-              {m.label}{" "}
-              <span className={`font-mono text-[10px] ${market === m.id ? "opacity-70" : "opacity-50"}`}>
-                ({m.framework})
-              </span>
+              {m.label}
             </button>
           ))}
         </div>
@@ -268,8 +257,7 @@ function PlatformDemo() {
           transition={{ duration: 0.6 }}
           className="glass rounded-3xl p-6 shadow-elegant"
         >
-          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Step 1</div>
-          <h3 className="font-display mt-1 text-lg text-foreground">Product Input</h3>
+          <h3 className="font-display text-lg text-foreground">Enter Product</h3>
 
           <div className="mt-5 inline-flex rounded-full border border-hairline bg-background/40 p-1 text-xs">
             {["Barcode", "Upload", "Manual"].map((t, i) => (
@@ -292,25 +280,22 @@ function PlatformDemo() {
 
           <button className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 px-5 py-2.5 text-sm font-medium text-background transition-all hover:scale-[1.01]">
             <ScanLine className="h-4 w-4" strokeWidth={2.25} />
-            Analyze for {activeMarket.framework}
+            Analyze Product
           </button>
 
-          <div className="mt-5 space-y-2">
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Try</div>
-            <div className="flex flex-wrap gap-2">
-              {["Soybean Oil", "Beef Sausage", "Mixed Biscuit"].map((p) => (
-                <span
-                  key={p}
-                  className="inline-flex items-center rounded-full border border-hairline bg-background/40 px-3 py-1 text-xs text-foreground/85 transition-colors hover:border-jade/40"
-                >
-                  {p}
-                </span>
-              ))}
-            </div>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {["Soybean Oil", "Beef Sausage", "Mixed Biscuit"].map((p) => (
+              <span
+                key={p}
+                className="inline-flex items-center rounded-full border border-hairline bg-background/40 px-3 py-1 text-xs text-foreground/85 transition-colors hover:border-jade/40"
+              >
+                {p}
+              </span>
+            ))}
           </div>
         </motion.div>
 
-        {/* Column 2 — Readiness Score (Radial Gauge) */}
+        {/* Column 2 — Readiness Score */}
         <motion.div
           key={`gauge-${market}`}
           initial={{ opacity: 0, y: 20 }}
@@ -319,25 +304,12 @@ function PlatformDemo() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="glass rounded-3xl p-6 shadow-elegant"
         >
-          <div className="flex items-start justify-between">
-            <div>
-              <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                Step 2
-              </div>
-              <h3 className="font-display mt-1 text-lg text-foreground">Readiness Score</h3>
-            </div>
-            <div className="rounded-full border border-jade/30 bg-jade/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-jade-glow">
-              {activeMarket.framework}
-            </div>
-          </div>
+          <h3 className="font-display text-lg text-foreground">Readiness Score</h3>
 
           <RadialGauge value={data.score} />
 
           <div className="mt-2 text-center text-xs text-muted-foreground">
-            Certification Readiness for{" "}
-            <span className="text-foreground/90">
-              {activeMarket.flag} {activeMarket.label}
-            </span>
+            {activeMarket.flag} {activeMarket.label}
           </div>
         </motion.div>
 
@@ -350,12 +322,7 @@ function PlatformDemo() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="glass rounded-3xl p-6 shadow-elegant"
         >
-          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Step 3</div>
-          <h3 className="font-display mt-1 text-lg text-foreground">Compliance Gaps</h3>
-          <p className="mt-1 text-xs text-muted-foreground">
-            {data.gaps.length} item{data.gaps.length === 1 ? "" : "s"} to address before applying
-            for {activeMarket.framework}.
-          </p>
+          <h3 className="font-display text-lg text-foreground">What to Fix</h3>
 
           <div className="mt-5 space-y-2.5">
             {data.gaps.map((g) => (
@@ -380,75 +347,36 @@ function PlatformDemo() {
               </div>
             ))}
           </div>
-
-          <button className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 px-5 py-2.5 text-sm font-medium text-background transition-all hover:scale-[1.01]">
-            <FileCheck2 className="h-4 w-4" strokeWidth={2.25} />
-            Generate Readiness Passport
-          </button>
         </motion.div>
       </div>
 
-      {/* Agent Trace Panel */}
-      <div className="mt-6">
-        <div className="overflow-hidden rounded-3xl border border-hairline bg-ink/80 shadow-elegant">
-          <button
-            onClick={() => setTraceOpen((v) => !v)}
-            className="flex w-full items-center justify-between gap-3 px-5 py-3.5 text-left transition-colors hover:bg-foreground/[0.02]"
-          >
-            <div className="flex items-center gap-2.5">
-              <Terminal className="h-4 w-4 text-jade" />
-              <span className="font-mono text-xs uppercase tracking-widest text-foreground/80">
-                Technical Trace · Agent Orchestration
-              </span>
-              <span className="hidden font-mono text-[10px] text-muted-foreground sm:inline">
-                — live thought process
-              </span>
-            </div>
-            <ChevronDown
-              className={`h-4 w-4 text-muted-foreground transition-transform ${
-                traceOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-
-          {traceOpen && (
-            <motion.div
-              key={`trace-${market}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-              className="border-t border-hairline px-5 py-5"
-              style={{ background: "oklch(0.1 0.012 240)" }}
-            >
-              <div className="font-mono text-xs leading-relaxed">
-                {data.trace.map((t, i) => (
-                  <motion.div
-                    key={`${market}-${i}`}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.25, duration: 0.3 }}
-                    className="flex items-start gap-3 py-1.5"
-                  >
-                    <span className="select-none text-jade">›</span>
-                    <span className="shrink-0 text-jade-glow">[{t.agent}]:</span>
-                    <span className="text-foreground/75">{t.line}</span>
-                  </motion.div>
-                ))}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: data.trace.length * 0.25 + 0.2 }}
-                  className="mt-2 flex items-center gap-2 text-foreground/40"
-                >
-                  <span className="text-jade">›</span>
-                  <span>Awaiting next instruction</span>
-                  <span className="inline-block h-3 w-1.5 animate-pulse bg-jade" />
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </div>
+      {/* Collapsed Analysis Details link */}
+      <div className="mt-6 flex justify-center">
+        <button
+          onClick={() => setDetailsOpen((v) => !v)}
+          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+        >
+          {detailsOpen ? "Hide" : "View"} Analysis Details
+          <ChevronDown className={`h-3.5 w-3.5 transition-transform ${detailsOpen ? "rotate-180" : ""}`} />
+        </button>
       </div>
+
+      {detailsOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          className="mt-4 overflow-hidden rounded-2xl border border-hairline bg-ink/80 px-5 py-4"
+        >
+          <div className="font-mono text-xs leading-relaxed">
+            {data.trace.map((t, i) => (
+              <div key={`${market}-${i}`} className="flex items-start gap-3 py-1">
+                <span className="text-jade">›</span>
+                <span className="text-foreground/75">{t.line}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      )}
 
       {/* NRB Collaboration Module */}
       <NRBModule market={activeMarket} />
