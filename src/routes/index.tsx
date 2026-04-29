@@ -14,8 +14,6 @@ import {
   Upload,
   Check,
   AlertTriangle,
-  FileCheck2,
-  Terminal,
   ChevronDown,
   MapPin,
   Briefcase,
