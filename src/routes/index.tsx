@@ -7,7 +7,6 @@ import {
   Sparkles,
   Apple,
   Heart,
-  Pill,
   Banknote,
   ArrowUpRight,
   ScanLine,
@@ -507,12 +506,6 @@ function DomainsSection() {
       customBadge: "verify",
     },
     {
-      icon: Pill,
-      t: "Pharmaceuticals",
-      d: "Excipients · Capsule shells · Gelatin sources · Coating agents",
-      verdict: "mushbooh" as const,
-    },
-    {
       icon: Banknote,
       t: "Finance",
       d: "Islamic finance screening · Riba-free verification · Sukuk & halal investment compliance",
@@ -521,7 +514,7 @@ function DomainsSection() {
   ];
   return (
     <Section eyebrow="Coverage" title="Every category. Every market. One readiness report.">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-3">
         {domains.map((d, i) => (
           <motion.div
             key={d.t}
@@ -634,7 +627,7 @@ function ProductShowcase() {
 /* ============================================================ FINAL CTA */
 function FinalCTA() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-32">
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
       <div className="relative overflow-hidden rounded-[1.5rem] border border-jade/20 bg-gradient-to-br from-surface via-background to-surface p-8 text-center sm:rounded-[2rem] sm:p-12 md:p-20">
         <div className="bg-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
         <div
@@ -686,7 +679,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:py-32">
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:py-20">
       <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
         <div className="text-xs uppercase tracking-widest text-jade">{eyebrow}</div>
         <h2 className="font-display mt-4 text-balance text-3xl font-light leading-[1.1] sm:text-4xl md:text-5xl">
