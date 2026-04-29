@@ -95,6 +95,7 @@
   --color-verdict-haram: var(--verdict-haram);
   --color-verdict-mushbooh: var(--verdict-mushbooh);
   --color-verdict-ikhtilaf: var(--verdict-ikhtilaf);
+  --color-safety-orange: var(--safety-orange);
 
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
