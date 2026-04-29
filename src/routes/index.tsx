@@ -7,7 +7,6 @@ import {
   Sparkles,
   Apple,
   Heart,
-  Pill,
   Banknote,
   ArrowUpRight,
   ScanLine,
