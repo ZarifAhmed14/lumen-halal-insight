@@ -8,7 +8,7 @@ import {
   Apple,
   Heart,
   Pill,
-  Globe2,
+  Banknote,
   ArrowUpRight,
   ScanLine,
   Upload,
@@ -513,9 +513,9 @@ function DomainsSection() {
       verdict: "mushbooh" as const,
     },
     {
-      icon: Globe2,
-      t: "Export Compliance",
-      d: "JAKIM · ESMA · HFA · EU certification readiness",
+      icon: Banknote,
+      t: "Finance",
+      d: "Islamic finance screening · Riba-free verification · Sukuk & halal investment compliance",
       verdict: "halal" as const,
     },
   ];
@@ -539,16 +539,6 @@ function DomainsSection() {
             </div>
             <h3 className="mt-6 font-display text-xl">{d.t}</h3>
             <p className="mt-1.5 text-xs text-muted-foreground">{d.d}</p>
-            <div className="mt-5">
-              {d.customBadge === "verify" ? (
-                <div className="inline-flex items-center gap-1.5 rounded-full border border-verdict-mushbooh/30 bg-verdict-mushbooh/10 px-2.5 py-1 text-xs font-medium text-verdict-mushbooh">
-                  <AlertTriangle className="h-3 w-3" strokeWidth={2.5} />
-                  Verify
-                </div>
-              ) : (
-                <VerdictBadge verdict={d.verdict} size="sm" />
-              )}
-            </div>
           </motion.div>
         ))}
       </div>
