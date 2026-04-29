@@ -513,9 +513,9 @@ function DomainsSection() {
       verdict: "mushbooh" as const,
     },
     {
-      icon: Globe2,
-      t: "Export Compliance",
-      d: "JAKIM · ESMA · HFA · EU certification readiness",
+      icon: Banknote,
+      t: "Finance",
+      d: "Islamic finance screening · Riba-free verification · Sukuk & halal investment compliance",
       verdict: "halal" as const,
     },
   ];
