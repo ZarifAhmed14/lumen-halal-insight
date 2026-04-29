@@ -9,6 +9,7 @@ import {
   Heart,
   Pill,
   Globe2,
+  Banknote,
   ArrowUpRight,
   ScanLine,
   Upload,
