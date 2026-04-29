@@ -8,7 +8,6 @@ import {
   Apple,
   Heart,
   Pill,
-  Globe2,
   Banknote,
   ArrowUpRight,
   ScanLine,
