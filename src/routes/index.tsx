@@ -546,12 +546,6 @@ function DomainsSection() {
     </Section>
   );
 }
-          </motion.div>
-        ))}
-      </div>
-    </Section>
-  );
-}
 
 /* ============================================================ PRODUCT SHOWCASE */
 function ProductShowcase() {
