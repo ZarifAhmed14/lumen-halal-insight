@@ -506,12 +506,6 @@ function DomainsSection() {
       customBadge: "verify",
     },
     {
-      icon: Pill,
-      t: "Pharmaceuticals",
-      d: "Excipients · Capsule shells · Gelatin sources · Coating agents",
-      verdict: "mushbooh" as const,
-    },
-    {
       icon: Banknote,
       t: "Finance",
       d: "Islamic finance screening · Riba-free verification · Sukuk & halal investment compliance",
@@ -520,7 +514,7 @@ function DomainsSection() {
   ];
   return (
     <Section eyebrow="Coverage" title="Every category. Every market. One readiness report.">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-3">
         {domains.map((d, i) => (
           <motion.div
             key={d.t}
