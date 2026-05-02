@@ -442,37 +442,29 @@ function IngredientRow({
 /* ============================================================ HOW IT WORKS */
 function HowItWorks() {
   const steps = [
-    { n: "01", t: "You scan", d: "Barcode, document upload, or manual entry." },
-    { n: "02", t: "We extract", d: "Every ingredient identified and normalized." },
-    {
-      n: "03",
-      t: "We analyze",
-      d: "Knowledge graph checks each ingredient against JAKIM, ESMA, HFA, and EU standards simultaneously.",
-    },
-    {
-      n: "04",
-      t: "You export",
-      d: "Gap report shows exactly what to fix before applying for certification.",
-    },
+    { n: "01", t: "Scan", d: "Barcode, upload, or manual entry" },
+    { n: "02", t: "Extract", d: "Ingredients identified and standardized" },
+    { n: "03", t: "Analyze", d: "Checked against global halal standards" },
+    { n: "04", t: "Export", d: "See what to fix before certification" },
   ];
   return (
-    <Section eyebrow="How it works" title="From ingredient list to export-ready, in four steps.">
+    <Section eyebrow="How it works" title="How Certification Readiness Works">
       <div className="relative">
-        <div className="absolute left-0 right-0 top-12 hidden h-px bg-gradient-to-r from-transparent via-jade/40 to-transparent md:block" />
+        <div className="absolute left-0 right-0 top-5 hidden h-px bg-gradient-to-r from-transparent via-jade/30 to-transparent md:block" />
         <div className="grid gap-8 md:grid-cols-4">
           {steps.map((s, i) => (
             <motion.div
               key={s.n}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="relative"
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="relative flex flex-col items-start"
             >
-              <div className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full border border-hairline bg-surface backdrop-blur">
-                <span className="font-display text-xl text-jade-glow">{s.n}</span>
+              <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-surface">
+                <span className="font-mono text-xs text-jade-glow">{s.n}</span>
               </div>
-              <h3 className="mt-5 font-display text-lg text-foreground">{s.t}</h3>
+              <h3 className="mt-4 font-display text-base text-foreground">{s.t}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{s.d}</p>
             </motion.div>
           ))}
