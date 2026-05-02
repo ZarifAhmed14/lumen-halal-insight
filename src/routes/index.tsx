@@ -105,11 +105,13 @@ function Hero() {
         حلال
       </div>
 
-      <div className="relative mx-auto max-w-3xl text-center">
+      <div className="relative grid items-center gap-10 md:grid-cols-2 md:gap-[60px]">
+        {/* LEFT COLUMN */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="text-left"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/60 px-3.5 py-1.5 text-xs text-muted-foreground backdrop-blur">
             <span className="relative flex h-1.5 w-1.5">
@@ -119,7 +121,7 @@ function Hero() {
             For halal food exporters · Private beta
           </div>
 
-          <h1 className="font-display mt-6 text-balance text-[2.6rem] font-light leading-[1.02] text-foreground sm:text-6xl md:text-7xl">
+          <h1 className="font-display mt-6 text-balance text-[2.6rem] font-light leading-[1.02] text-foreground sm:text-5xl md:text-6xl">
             Turn Ingredients Into{" "}
             <span className="italic text-gradient-jade">Export Opportunities.</span>
           </h1>
@@ -128,12 +130,12 @@ function Hero() {
             AI-powered halal pre-certification readiness.
           </p>
 
-          <p className="mx-auto mt-6 max-w-2xl text-pretty text-[15px] leading-relaxed text-muted-foreground sm:text-base md:text-lg">
+          <p className="mt-6 max-w-xl text-pretty text-[15px] leading-relaxed text-muted-foreground sm:text-base md:text-lg">
             Know exactly which ingredients to fix before applying for JAKIM, ESMA, HFA, or EU
             certification. Built for Bangladeshi manufacturers entering global markets.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
               to="/assistant"
               className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-all hover:scale-[1.02] glow-jade"
@@ -150,9 +152,140 @@ function Hero() {
               Upload Ingredient List
             </Link>
           </div>
+
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            {[
+              { flag: "🇲🇾", label: "JAKIM" },
+              { flag: "🇦🇪", label: "ESMA" },
+              { flag: "🇬🇧", label: "HFA" },
+            ].map((b) => (
+              <span
+                key={b.label}
+                className="inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface/40 px-3 py-1 text-xs text-muted-foreground backdrop-blur"
+              >
+                <span className="text-sm leading-none">{b.flag}</span>
+                <span className="font-medium text-foreground/80">{b.label}</span>
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* RIGHT COLUMN — Live Analysis Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="relative"
+        >
+          <div
+            className="glass rounded-2xl p-6 shadow-elegant backdrop-blur-xl"
+            style={{
+              borderColor: "color-mix(in oklab, var(--gold, #d4af37) 20%, transparent)",
+              borderWidth: 1,
+              borderStyle: "solid",
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+                Live Analysis Preview
+              </span>
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-jade animate-pulse-ring" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-jade" />
+              </span>
+            </div>
+
+            <div className="mt-5 space-y-3">
+              <PreviewRow name="Soybean Oil" status="halal" label="HALAL" />
+              <PreviewRow
+                name="E471 — Mono/Di-glycerides"
+                status="verify"
+                label="VERIFY"
+                note="Source documentation required"
+              />
+              <PreviewRow
+                name="Pork Gelatin"
+                status="haram"
+                label="HARAM"
+                note="Must be removed"
+              />
+            </div>
+
+            <div className="my-5 h-px w-full bg-hairline" />
+
+            <div className="space-y-3">
+              <MarketRow flag="🇲🇾" name="Malaysia JAKIM" pct={42} tone="amber" status="Nearly Ready" />
+              <MarketRow flag="🇬🇧" name="UK HFA" pct={31} tone="red" status="Gaps Found" />
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
+  );
+}
+
+function PreviewRow({
+  name,
+  status,
+  label,
+  note,
+}: {
+  name: string;
+  status: "halal" | "verify" | "haram";
+  label: string;
+  note?: string;
+}) {
+  const tone =
+    status === "halal"
+      ? "border-verdict-halal/30 bg-verdict-halal/10 text-verdict-halal"
+      : status === "verify"
+        ? "border-verdict-mushbooh/30 bg-verdict-mushbooh/10 text-verdict-mushbooh"
+        : "border-verdict-haram/30 bg-verdict-haram/10 text-verdict-haram";
+  return (
+    <div className="flex items-start justify-between gap-3">
+      <div className="min-w-0">
+        <div className="truncate text-sm text-foreground">{name}</div>
+        {note && <div className="mt-0.5 text-[11px] text-muted-foreground">{note}</div>}
+      </div>
+      <span
+        className={`shrink-0 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold tracking-wider ${tone}`}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+function MarketRow({
+  flag,
+  name,
+  pct,
+  tone,
+  status,
+}: {
+  flag: string;
+  name: string;
+  pct: number;
+  tone: "amber" | "red";
+  status: string;
+}) {
+  const barColor =
+    tone === "amber" ? "bg-verdict-mushbooh" : "bg-verdict-haram";
+  const textColor =
+    tone === "amber" ? "text-verdict-mushbooh" : "text-verdict-haram";
+  return (
+    <div>
+      <div className="flex items-center justify-between text-xs">
+        <span className="flex items-center gap-2 text-foreground/80">
+          <span className="text-sm leading-none">{flag}</span>
+          {name}
+        </span>
+        <span className={`font-medium ${textColor}`}>{status}</span>
+      </div>
+      <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-foreground/10">
+        <div className={`h-full ${barColor}`} style={{ width: `${pct}%` }} />
+      </div>
+    </div>
   );
 }
 
