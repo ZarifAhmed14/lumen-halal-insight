@@ -109,12 +109,12 @@ const MARKET_DATA: Record<
 
 function LandingPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
+    <div className="relative min-h-screen overflow-hidden">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-[800px]"
         style={{ background: "var(--gradient-aurora)" }}
       />
-      <div className="bg-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" />
+      <div className="bg-grid pointer-events-none absolute inset-0 opacity-30 [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_70%)]" />
 
       <Nav />
 
