@@ -133,7 +133,7 @@ function Hero() {
             certification. Built for Bangladeshi manufacturers entering global markets.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/assistant"
               className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-all hover:scale-[1.02] glow-jade"
