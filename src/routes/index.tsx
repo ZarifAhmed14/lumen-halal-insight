@@ -40,71 +40,12 @@ export const Route = createFileRoute("/")({
   component: LandingPage,
 });
 
-type Market = "MY" | "AE" | "UK" | "EU";
-const MARKETS: { id: Market; label: string; framework: string; flag: string }[] = [
-  { id: "MY", label: "Malaysia", framework: "JAKIM", flag: "🇲🇾" },
-  { id: "AE", label: "UAE", framework: "ESMA", flag: "🇦🇪" },
-  { id: "UK", label: "UK", framework: "HFA", flag: "🇬🇧" },
-  { id: "EU", label: "European Union", framework: "EU", flag: "🇪🇺" },
+type IngredientStatus = "halal" | "verify" | "haram";
+const SAMPLE_INGREDIENTS: { name: string; status: IngredientStatus; note: string }[] = [
+  { name: "Soybean Oil", status: "halal", note: "Plant-based — clear for export." },
+  { name: "E471 Emulsifier", status: "verify", note: "Source unclear — supplier certificate needed." },
+  { name: "Bovine Glycerin", status: "haram", note: "Origin not from a certified abattoir." },
 ];
-
-const MARKET_DATA: Record<
-  Market,
-  { score: number; gaps: { title: string; detail: string }[]; trace: { agent: string; line: string }[] }
-> = {
-  MY: {
-    score: 62,
-    gaps: [
-      { title: "Documentation Missing", detail: "E471 emulsifier — JAKIM-recognized supplier certificate not attached." },
-      { title: "Source Verification Required", detail: "Bovine glycerin origin must be traced to JAKIM-approved abattoir." },
-      { title: "Process Audit Pending", detail: "Shared production line requires segregation declaration." },
-    ],
-    trace: [
-      { agent: "Molecular Auditor", line: "Decomposing E-codes... E471 flagged for plant/animal ambiguity." },
-      { agent: "Regulatory Jurist", line: "Cross-referencing JAKIM 2024 standards... Source certificate missing." },
-      { agent: "Gap Strategist", line: "Identifying plant-based alternatives in the local supply chain..." },
-    ],
-  },
-  AE: {
-    score: 71,
-    gaps: [
-      { title: "Documentation Missing", detail: "ESMA UAE.S 2055-1:2015 supplier declaration not on file." },
-      { title: "Labeling Non-Conformance", detail: "Arabic ingredient list required for UAE retail entry." },
-    ],
-    trace: [
-      { agent: "Molecular Auditor", line: "Decomposing E-codes... All additives within ESMA tolerance." },
-      { agent: "Regulatory Jurist", line: "Cross-referencing ESMA UAE.S 2055-1... Supplier attestation absent." },
-      { agent: "Gap Strategist", line: "Drafting bilingual label template for GCC market entry..." },
-    ],
-  },
-  UK: {
-    score: 48,
-    gaps: [
-      { title: "Source Verification Required", detail: "Gelatin must originate from HFA-recognized facility." },
-      { title: "Documentation Missing", detail: "HMC/HFA chain-of-custody records absent." },
-      { title: "Process Audit Pending", detail: "Stunning method declaration not provided for meat inputs." },
-    ],
-    trace: [
-      { agent: "Molecular Auditor", line: "Decomposing E-codes... Animal-derived gelatin detected." },
-      { agent: "Regulatory Jurist", line: "Cross-referencing HFA UK 2023 standards... Chain-of-custody gap." },
-      { agent: "Gap Strategist", line: "Mapping HFA-certified UK importers for partnership..." },
-    ],
-  },
-  EU: {
-    score: 39,
-    gaps: [
-      { title: "Documentation Missing", detail: "EU 1169/2011 allergen disclosure incomplete." },
-      { title: "Source Verification Required", detail: "Halal Control / GD verification body audit pending." },
-      { title: "Process Audit Pending", detail: "Cross-contamination risk assessment required for EU entry." },
-      { title: "Labeling Non-Conformance", detail: "Multilingual nutrition panel missing." },
-    ],
-    trace: [
-      { agent: "Molecular Auditor", line: "Decomposing E-codes... Multiple flagged inputs across SKUs." },
-      { agent: "Regulatory Jurist", line: "Cross-referencing EU Halal Control 2024... Audit body unassigned." },
-      { agent: "Gap Strategist", line: "Sequencing remediation roadmap for EU export readiness..." },
-    ],
-  },
-};
 
 function LandingPage() {
   return (
