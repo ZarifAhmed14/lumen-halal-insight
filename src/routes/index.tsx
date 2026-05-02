@@ -119,7 +119,7 @@ function Hero() {
             For halal food exporters · Private beta
           </div>
 
-          <h1 className="font-display mt-7 text-balance text-[2.6rem] font-light leading-[1.02] text-foreground sm:text-6xl md:text-7xl">
+          <h1 className="font-display mt-6 text-balance text-[2.6rem] font-light leading-[1.02] text-foreground sm:text-6xl md:text-7xl">
             Turn Ingredients Into{" "}
             <span className="italic text-gradient-jade">Export Opportunities.</span>
           </h1>
