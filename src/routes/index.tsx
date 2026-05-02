@@ -158,229 +158,148 @@ function Hero() {
 
 /* ============================================================ PLATFORM DEMO */
 function PlatformDemo() {
-  const [market, setMarket] = useState<Market>("MY");
-  const [detailsOpen, setDetailsOpen] = useState(false);
-  const data = MARKET_DATA[market];
-  const activeMarket = MARKETS.find((m) => m.id === market)!;
+  const readyCount = SAMPLE_INGREDIENTS.filter((i) => i.status === "halal").length;
+  const total = SAMPLE_INGREDIENTS.length;
+  const readyPct = Math.round((readyCount / total) * 100);
 
   return (
-    <Section eyebrow="Product Analysis" title="Check your product's halal export readiness.">
-      {/* Market Segmented Control */}
-      <div className="mb-8 flex justify-center">
-        <div className="glass inline-flex rounded-full p-1 text-xs sm:text-sm">
-          {MARKETS.map((m) => (
-            <button
-              key={m.id}
-              onClick={() => setMarket(m.id)}
-              className={`relative rounded-full px-4 py-2 font-medium transition-all sm:px-5 ${
-                market === m.id
-                  ? "bg-foreground text-background shadow-elegant"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <span className="mr-1.5">{m.flag}</span>
-              {m.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="grid gap-5 lg:grid-cols-3">
-        {/* Column 1 — Product Input */}
+    <Section
+      eyebrow="How it works"
+      title="Find out what to fix before certification."
+    >
+      <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 md:gap-8">
+        {/* LEFT — Step 1: Enter product */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="glass rounded-3xl p-6 shadow-elegant"
+          className="glass rounded-3xl p-7 shadow-elegant"
         >
-          <h3 className="font-display text-lg text-foreground">Enter Product</h3>
+          <div className="text-xs font-medium uppercase tracking-widest text-jade-glow">
+            Step 1
+          </div>
+          <h3 className="font-display mt-2 text-2xl text-foreground">
+            Enter your product
+          </h3>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Paste a barcode or product name. We'll do the rest.
+          </p>
 
-          <div className="mt-5 inline-flex rounded-full border border-hairline bg-background/40 p-1 text-xs">
-            {["Barcode", "Upload", "Manual"].map((t, i) => (
-              <button
-                key={t}
-                className={`rounded-full px-3 py-1.5 transition-colors ${
-                  i === 0
-                    ? "bg-foreground text-background"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {t}
-              </button>
-            ))}
+          <div className="mt-6 rounded-2xl border border-hairline bg-background/40 px-4 py-4">
+            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+              Product
+            </div>
+            <div className="mt-1.5 font-display text-lg text-foreground">
+              Beef Sausage — 250g
+            </div>
           </div>
 
-          <div className="mt-4 rounded-xl border border-hairline bg-background/40 px-3.5 py-3 text-xs text-muted-foreground">
-            Enter barcode or product name...
-          </div>
-
-          <button className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 px-5 py-2.5 text-sm font-medium text-background transition-all hover:scale-[1.01]">
+          <button className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-amber-300 to-amber-500 px-5 py-3 text-sm font-medium text-background transition-all hover:scale-[1.01]">
             <ScanLine className="h-4 w-4" strokeWidth={2.25} />
             Analyze Product
           </button>
-
-          <div className="mt-5 flex flex-wrap gap-2">
-            {["Soybean Oil", "Beef Sausage", "Mixed Biscuit"].map((p) => (
-              <span
-                key={p}
-                className="inline-flex items-center rounded-full border border-hairline bg-background/40 px-3 py-1 text-xs text-foreground/85 transition-colors hover:border-jade/40"
-              >
-                {p}
-              </span>
-            ))}
-          </div>
         </motion.div>
 
-        {/* Column 2 — Readiness Score */}
+        {/* RIGHT — Step 2 + 3: Analysis & what to fix */}
         <motion.div
-          key={`gauge-${market}`}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="glass rounded-3xl p-6 shadow-elegant"
+          className="glass rounded-3xl p-7 shadow-elegant"
         >
-          <h3 className="font-display text-lg text-foreground">Readiness Score</h3>
-
-          <RadialGauge value={data.score} />
-
-          <div className="mt-2 text-center text-xs text-muted-foreground">
-            {activeMarket.flag} {activeMarket.label}
+          <div className="text-xs font-medium uppercase tracking-widest text-jade-glow">
+            Step 2 → 3
           </div>
-        </motion.div>
+          <h3 className="font-display mt-2 text-2xl text-foreground">
+            See what needs fixing
+          </h3>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Each ingredient gets a clear status — so you know exactly what to do next.
+          </p>
 
-        {/* Column 3 — Compliance Gaps */}
-        <motion.div
-          key={`gaps-${market}`}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="glass rounded-3xl p-6 shadow-elegant"
-        >
-          <h3 className="font-display text-lg text-foreground">What to Fix</h3>
-
-          <div className="mt-5 space-y-2.5">
-            {data.gaps.map((g) => (
-              <div
-                key={g.title}
-                className="rounded-xl border border-hairline bg-background/40 p-3.5"
-                style={{ borderLeft: "3px solid var(--safety-orange)" }}
-              >
-                <div className="flex items-start gap-2.5">
-                  <AlertTriangle
-                    className="mt-0.5 h-3.5 w-3.5 shrink-0"
-                    strokeWidth={2.5}
-                    style={{ color: "var(--safety-orange)" }}
-                  />
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--safety-orange)" }}>
-                      {g.title}
-                    </div>
-                    <p className="mt-1 text-xs leading-relaxed text-foreground/80">{g.detail}</p>
-                  </div>
-                </div>
+          {/* Simple progress bar */}
+          <div className="mt-6">
+            <div className="flex items-end justify-between">
+              <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                How ready you are
               </div>
+              <div className="font-display text-base text-foreground">
+                {readyCount} of {total} ready
+              </div>
+            </div>
+            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-background/60">
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: `${readyPct}%` }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+                className="h-full rounded-full bg-gradient-to-r from-jade to-jade-glow"
+              />
+            </div>
+          </div>
+
+          {/* Ingredient list */}
+          <div className="mt-6 space-y-2.5">
+            {SAMPLE_INGREDIENTS.map((ing) => (
+              <IngredientRow key={ing.name} {...ing} />
             ))}
           </div>
         </motion.div>
       </div>
-
-      {/* Collapsed Analysis Details link */}
-      <div className="mt-6 flex justify-center">
-        <button
-          onClick={() => setDetailsOpen((v) => !v)}
-          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
-        >
-          {detailsOpen ? "Hide" : "View"} Analysis Details
-          <ChevronDown className={`h-3.5 w-3.5 transition-transform ${detailsOpen ? "rotate-180" : ""}`} />
-        </button>
-      </div>
-
-      {detailsOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          className="mt-4 overflow-hidden rounded-2xl border border-hairline bg-ink/80 px-5 py-4"
-        >
-          <div className="font-mono text-xs leading-relaxed">
-            {data.trace.map((t, i) => (
-              <div key={`${market}-${i}`} className="flex items-start gap-3 py-1">
-                <span className="text-jade">›</span>
-                <span className="text-foreground/75">{t.line}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      )}
-
     </Section>
   );
 }
 
-/* ============================================================ RADIAL GAUGE */
-function RadialGauge({ value }: { value: number }) {
-  const size = 200;
-  const stroke = 14;
-  const radius = (size - stroke) / 2;
-  const circ = 2 * Math.PI * radius;
-  const offset = circ - (value / 100) * circ;
-
-  // Color based on score
-  const color =
-    value >= 80
-      ? "var(--verdict-halal)"
-      : value >= 50
-        ? "var(--verdict-mushbooh)"
-        : "var(--safety-orange)";
-
-  const label =
-    value >= 80 ? "Export Ready" : value >= 50 ? "Nearly Ready" : "Significant Gaps";
+function IngredientRow({
+  name,
+  status,
+  note,
+}: {
+  name: string;
+  status: IngredientStatus;
+  note: string;
+}) {
+  const cfg = {
+    halal: {
+      label: "Ready",
+      color: "var(--verdict-halal)",
+      Icon: Check,
+    },
+    verify: {
+      label: "Needs Fix",
+      color: "var(--safety-orange)",
+      Icon: AlertTriangle,
+    },
+    haram: {
+      label: "Not Allowed",
+      color: "var(--verdict-haram)",
+      Icon: AlertTriangle,
+    },
+  }[status];
 
   return (
-    <div className="relative mx-auto mt-5 flex items-center justify-center" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90">
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke="oklch(1 0 0 / 0.06)"
-          strokeWidth={stroke}
-          fill="none"
-        />
-        <motion.circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke={color}
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          fill="none"
-          strokeDasharray={circ}
-          initial={{ strokeDashoffset: circ }}
-          animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          style={{ filter: `drop-shadow(0 0 12px ${color})` }}
-        />
-      </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <div className="font-display text-5xl font-light text-foreground">
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
+    <div
+      className="flex items-center gap-3 rounded-xl border border-hairline bg-background/40 px-3.5 py-3"
+      style={{ borderLeft: `3px solid ${cfg.color}` }}
+    >
+      <cfg.Icon
+        className="h-3.5 w-3.5 shrink-0"
+        strokeWidth={2.5}
+        style={{ color: cfg.color }}
+      />
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center justify-between gap-2">
+          <div className="truncate text-sm font-medium text-foreground">{name}</div>
+          <span
+            className="shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+            style={{ color: cfg.color, borderColor: `${cfg.color}55` }}
           >
-            {value}
-          </motion.span>
-          <span className="text-2xl text-muted-foreground">%</span>
+            {cfg.label}
+          </span>
         </div>
-        <div
-          className="mt-1 text-[10px] font-semibold uppercase tracking-widest"
-          style={{ color }}
-        >
-          {label}
-        </div>
+        <p className="mt-0.5 truncate text-xs text-muted-foreground">{note}</p>
       </div>
     </div>
   );
