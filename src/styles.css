@@ -201,6 +201,12 @@
 
   body {
     background-color: var(--color-background);
+    background-image:
+      radial-gradient(ellipse 90% 50% at 50% -10%, oklch(0.62 0.13 165 / 0.22), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 90% 30%, oklch(0.55 0.11 175 / 0.14), transparent 65%),
+      radial-gradient(ellipse 80% 60% at 10% 70%, oklch(0.5 0.1 180 / 0.12), transparent 65%),
+      linear-gradient(180deg, oklch(0.18 0.025 175) 0%, oklch(0.16 0.028 180) 50%, oklch(0.18 0.025 170) 100%);
+    background-attachment: fixed;
     color: var(--color-foreground);
     font-feature-settings: "ss01", "cv11";
   }
