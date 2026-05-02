@@ -97,7 +97,7 @@ function LDCBanner() {
 /* ============================================================ HERO */
 function Hero() {
   return (
-    <section className="relative mx-auto max-w-7xl px-4 pt-14 pb-20 sm:px-6 sm:pt-20 sm:pb-28 md:pt-24">
+    <section className="relative mx-auto max-w-7xl px-4 pt-16 pb-16 sm:px-6 sm:pt-20 sm:pb-20">
       <div
         aria-hidden
         className="font-arabic pointer-events-none absolute right-4 top-12 select-none text-[120px] leading-none text-jade/[0.06] sm:right-10 sm:top-16 sm:text-[180px] md:text-[240px]"
@@ -119,7 +119,7 @@ function Hero() {
             For halal food exporters · Private beta
           </div>
 
-          <h1 className="font-display mt-7 text-balance text-[2.6rem] font-light leading-[1.02] text-foreground sm:text-6xl md:text-7xl">
+          <h1 className="font-display mt-6 text-balance text-[2.6rem] font-light leading-[1.02] text-foreground sm:text-6xl md:text-7xl">
             Turn Ingredients Into{" "}
             <span className="italic text-gradient-jade">Export Opportunities.</span>
           </h1>
@@ -133,7 +133,7 @@ function Hero() {
             certification. Built for Bangladeshi manufacturers entering global markets.
           </p>
 
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/assistant"
               className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition-all hover:scale-[1.02] glow-jade"
