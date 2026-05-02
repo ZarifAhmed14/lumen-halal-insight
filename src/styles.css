@@ -132,30 +132,30 @@
 :root {
   --radius: 0.875rem;
 
-  /* Default = dark midnight (signature look) */
-  --background: oklch(0.16 0.018 240);
+  /* Default = continuous dark emerald atmosphere (no flat black) */
+  --background: oklch(0.18 0.025 175);
   --foreground: oklch(0.96 0.012 85);
 
-  --ink: oklch(0.12 0.015 240);
+  --ink: oklch(0.15 0.022 175);
   --parchment: oklch(0.96 0.018 85);
   --gold: oklch(0.78 0.12 75);
   --jade: oklch(0.62 0.13 165);
   --jade-glow: oklch(0.72 0.14 160);
 
-  --surface: oklch(0.19 0.018 240);
-  --surface-elevated: oklch(0.22 0.02 240);
+  --surface: oklch(0.21 0.028 170);
+  --surface-elevated: oklch(0.24 0.032 170);
   --hairline: oklch(1 0 0 / 0.08);
 
-  --card: oklch(0.19 0.018 240);
+  --card: oklch(0.21 0.028 170);
   --card-foreground: oklch(0.96 0.012 85);
-  --popover: oklch(0.22 0.02 240);
+  --popover: oklch(0.23 0.03 170);
   --popover-foreground: oklch(0.96 0.012 85);
 
   --primary: oklch(0.62 0.13 165);
   --primary-foreground: oklch(0.12 0.015 240);
-  --secondary: oklch(0.24 0.02 240);
+  --secondary: oklch(0.25 0.03 170);
   --secondary-foreground: oklch(0.96 0.012 85);
-  --muted: oklch(0.22 0.018 240);
+  --muted: oklch(0.23 0.028 170);
   --muted-foreground: oklch(0.7 0.015 85);
   --accent: oklch(0.78 0.12 75);
   --accent-foreground: oklch(0.12 0.015 240);
@@ -177,11 +177,11 @@
   --chart-4: oklch(0.72 0.14 160);
   --chart-5: oklch(0.55 0.1 200);
 
-  --sidebar: oklch(0.14 0.015 240);
+  --sidebar: oklch(0.16 0.022 175);
   --sidebar-foreground: oklch(0.96 0.012 85);
   --sidebar-primary: oklch(0.62 0.13 165);
   --sidebar-primary-foreground: oklch(0.12 0.015 240);
-  --sidebar-accent: oklch(0.22 0.018 240);
+  --sidebar-accent: oklch(0.23 0.028 170);
   --sidebar-accent-foreground: oklch(0.96 0.012 85);
   --sidebar-border: oklch(1 0 0 / 0.08);
   --sidebar-ring: oklch(0.62 0.13 165);
@@ -201,6 +201,12 @@
 
   body {
     background-color: var(--color-background);
+    background-image:
+      radial-gradient(ellipse 90% 50% at 50% -10%, oklch(0.62 0.13 165 / 0.22), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 90% 30%, oklch(0.55 0.11 175 / 0.14), transparent 65%),
+      radial-gradient(ellipse 80% 60% at 10% 70%, oklch(0.5 0.1 180 / 0.12), transparent 65%),
+      linear-gradient(180deg, oklch(0.18 0.025 175) 0%, oklch(0.16 0.028 180) 50%, oklch(0.18 0.025 170) 100%);
+    background-attachment: fixed;
     color: var(--color-foreground);
     font-feature-settings: "ss01", "cv11";
   }
