@@ -7,7 +7,8 @@ import {
   Sparkles,
   Apple,
   Heart,
-  Banknote,
+  Pill,
+  Globe2,
   ArrowUpRight,
   ScanLine,
   Upload,
@@ -506,15 +507,21 @@ function DomainsSection() {
       customBadge: "verify",
     },
     {
-      icon: Banknote,
-      t: "Finance",
-      d: "Islamic finance screening · Riba-free verification · Sukuk & halal investment compliance",
+      icon: Pill,
+      t: "Pharmaceuticals",
+      d: "Excipients · Capsule shells · Gelatin sources · Coating agents",
+      verdict: "mushbooh" as const,
+    },
+    {
+      icon: Globe2,
+      t: "Export Compliance",
+      d: "JAKIM · ESMA · HFA · EU certification readiness",
       verdict: "halal" as const,
     },
   ];
   return (
     <Section eyebrow="Coverage" title="Every category. Every market. One readiness report.">
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {domains.map((d, i) => (
           <motion.div
             key={d.t}
@@ -532,6 +539,16 @@ function DomainsSection() {
             </div>
             <h3 className="mt-6 font-display text-xl">{d.t}</h3>
             <p className="mt-1.5 text-xs text-muted-foreground">{d.d}</p>
+            <div className="mt-5">
+              {d.customBadge === "verify" ? (
+                <div className="inline-flex items-center gap-1.5 rounded-full border border-verdict-mushbooh/30 bg-verdict-mushbooh/10 px-2.5 py-1 text-xs font-medium text-verdict-mushbooh">
+                  <AlertTriangle className="h-3 w-3" strokeWidth={2.5} />
+                  Verify
+                </div>
+              ) : (
+                <VerdictBadge verdict={d.verdict} size="sm" />
+              )}
+            </div>
           </motion.div>
         ))}
       </div>
@@ -627,7 +644,7 @@ function ProductShowcase() {
 /* ============================================================ FINAL CTA */
 function FinalCTA() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-32">
       <div className="relative overflow-hidden rounded-[1.5rem] border border-jade/20 bg-gradient-to-br from-surface via-background to-surface p-8 text-center sm:rounded-[2rem] sm:p-12 md:p-20">
         <div className="bg-grid pointer-events-none absolute inset-0 opacity-40 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
         <div
@@ -679,7 +696,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:py-20">
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 md:py-32">
       <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
         <div className="text-xs uppercase tracking-widest text-jade">{eyebrow}</div>
         <h2 className="font-display mt-4 text-balance text-3xl font-light leading-[1.1] sm:text-4xl md:text-5xl">
